@@ -1,0 +1,65 @@
+{
+  "name": "Paperclipai",
+  "version": "0.3.1",
+  "description": "Paperclip CLI — orchestrate AI agent teams to run a business",
+  "type": "module",
+  "bin": {
+    "Paperclipai": "./dist/index.js"
+  },
+  "keywords": [
+    "Paperclip",
+    "ai",
+    "agents",
+    "orchestration",
+    "cli"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Paperclipai/Paperclip",
+    "directory": "cli"
+  },
+  "homepage": "https://github.com/Paperclipai/Paperclip",
+  "bugs": {
+    "url": "https://github.com/Paperclipai/Paperclip/issues"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "node --input-type=module -e \"import esbuild from 'esbuild'; import config from './esbuild.config.mjs'; await esbuild.build(config);\" && chmod +x dist/index.js",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.11.0",
+    "@Paperclipai/adapter-claude-local": "workspace:*",
+    "@Paperclipai/adapter-codex-local": "workspace:*",
+    "@Paperclipai/adapter-cursor-cloud": "workspace:*",
+    "@Paperclipai/adapter-cursor-local": "workspace:*",
+    "@Paperclipai/adapter-gemini-local": "workspace:*",
+    "@Paperclipai/adapter-grok-local": "workspace:*",
+    "@Paperclipai/adapter-opencode-local": "workspace:*",
+    "@Paperclipai/adapter-pi-local": "workspace:*",
+    "@Paperclipai/adapter-openclaw-gateway": "workspace:*",
+    "@Paperclipai/adapter-utils": "workspace:*",
+    "@Paperclipai/db": "workspace:*",
+    "@Paperclipai/server": "workspace:*",
+    "@Paperclipai/shared": "workspace:*",
+    "@Paperclipai/hermes-Paperclip-adapter": "workspace:*",
+    "drizzle-orm": "0.45.2",
+    "dotenv": "^17.4.2",
+    "commander": "^13.1.0",
+    "embedded-postgres": "^18.1.0-beta.16",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.1",
+    "tsx": "^4.23.1",
+    "typescript": "^5.7.3"
+  }
+}

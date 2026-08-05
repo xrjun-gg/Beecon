@@ -1,0 +1,90 @@
+{
+  "family": "Paperclip-server",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "2048",
+  "memory": "4096",
+  "executionRoleArn": "arn:aws:iam::<ACCOUNT_ID>:role/Paperclip-ecs-execution",
+  "taskRoleArn": "arn:aws:iam::<ACCOUNT_ID>:role/Paperclip-ecs-task",
+  "containerDefinitions": [
+    {
+      "name": "Paperclip-server",
+      "image": "<ACCOUNT_ID>.dkr.ecr.<REGION>.amazonaws.com/Paperclip-server:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 3100,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        { "name": "NODE_ENV", "value": "production" },
+        { "name": "HOST", "value": "0.0.0.0" },
+        { "name": "PORT", "value": "3100" },
+        { "name": "SERVE_UI", "value": "true" },
+        { "name": "Paperclip_HOME", "value": "/Paperclip" },
+        { "name": "Paperclip_INSTANCE_ID", "value": "default" },
+        { "name": "Paperclip_CONFIG", "value": "/Paperclip/instances/default/config.json" },
+        { "name": "Paperclip_DEPLOYMENT_MODE", "value": "authenticated" },
+        { "name": "Paperclip_DEPLOYMENT_EXPOSURE", "value": "public" },
+        { "name": "Paperclip_PUBLIC_URL", "value": "https://<DOMAIN>" },
+        { "name": "Paperclip_MIGRATION_AUTO_APPLY", "value": "true" },
+        { "name": "HEARTBEAT_SCHEDULER_ENABLED", "value": "true" }
+      ],
+      "secrets": [
+        {
+          "name": "DATABASE_URL",
+          "valueFrom": "arn:aws:secretsmanager:<REGION>:<ACCOUNT_ID>:secret:Paperclip/database-url"
+        },
+        {
+          "name": "BETTER_AUTH_SECRET",
+          "valueFrom": "arn:aws:secretsmanager:<REGION>:<ACCOUNT_ID>:secret:Paperclip/better-auth-secret"
+        },
+        {
+          "name": "ANTHROPIC_API_KEY",
+          "valueFrom": "arn:aws:secretsmanager:<REGION>:<ACCOUNT_ID>:secret:Paperclip/anthropic-api-key"
+        },
+        {
+          "name": "OPENAI_API_KEY",
+          "valueFrom": "arn:aws:secretsmanager:<REGION>:<ACCOUNT_ID>:secret:Paperclip/openai-api-key"
+        },
+        {
+          "name": "GITHUB_TOKEN",
+          "valueFrom": "arn:aws:secretsmanager:<REGION>:<ACCOUNT_ID>:secret:Paperclip/github-token"
+        }
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "Paperclip-data",
+          "containerPath": "/Paperclip",
+          "readOnly": false
+        }
+      ],
+      "healthCheck": {
+        "command": ["CMD-SHELL", "curl -f http://localhost:3100/api/health || exit 1"],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 60
+      },
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/Paperclip",
+          "awslogs-region": "<REGION>",
+          "awslogs-stream-prefix": "server"
+        }
+      }
+    }
+  ],
+  "volumes": [
+    {
+      "name": "Paperclip-data",
+      "efsVolumeConfiguration": {
+        "fileSystemId": "<EFS_ID>",
+        "rootDirectory": "/",
+        "transitEncryption": "ENABLED"
+      }
+    }
+  ]
+}

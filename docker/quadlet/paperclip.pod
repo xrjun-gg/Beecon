@@ -1,0 +1,3 @@
+[Pod]
+PodName=Paperclip
+PublishPort=3100:3100

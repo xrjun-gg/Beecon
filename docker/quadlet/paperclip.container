@@ -1,0 +1,23 @@
+[Unit]
+Description=Paperclip AI Agent Orchestrator
+Requires=Paperclip-db.service
+After=Paperclip-db.service
+
+[Container]
+Image=Paperclip-local
+ContainerName=Paperclip
+Pod=Paperclip.pod
+Volume=%h/.local/share/Paperclip:/Paperclip:Z
+Environment=HOST=0.0.0.0
+Environment=Paperclip_HOME=/Paperclip
+Environment=Paperclip_DEPLOYMENT_MODE=authenticated
+Environment=Paperclip_DEPLOYMENT_EXPOSURE=private
+Environment=Paperclip_PUBLIC_URL=http://localhost:3100
+EnvironmentFile=%h/.config/containers/systemd/Paperclip.env
+
+[Service]
+Restart=on-failure
+TimeoutStartSec=120
+
+[Install]
+WantedBy=default.target

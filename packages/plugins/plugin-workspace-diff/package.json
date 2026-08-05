@@ -1,0 +1,71 @@
+{
+  "name": "@Paperclipai/plugin-workspace-diff",
+  "version": "0.1.0",
+  "description": "First-party execution workspace Changes tab powered by plugin-local workspace metadata",
+  "license": "MIT",
+  "homepage": "https://github.com/Paperclipai/Paperclip",
+  "bugs": {
+    "url": "https://github.com/Paperclipai/Paperclip/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Paperclipai/Paperclip",
+    "directory": "packages/plugins/plugin-workspace-diff"
+  },
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js"
+      }
+    },
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts"
+  },
+  "files": [
+    "dist"
+  ],
+  "PaperclipPlugin": {
+    "manifest": "./dist/manifest.js",
+    "worker": "./dist/worker.js",
+    "ui": "./dist/ui/"
+  },
+  "keywords": [
+    "Paperclip",
+    "plugin",
+    "workspace",
+    "diff"
+  ],
+  "scripts": {
+    "prebuild": "pnpm --filter @Paperclipai/plugin-sdk ensure-build-deps",
+    "build": "tsc && node ./scripts/build-ui.mjs",
+    "clean": "rm -rf dist",
+    "typecheck": "pnpm --filter @Paperclipai/plugin-sdk ensure-build-deps && tsc --noEmit && tsc --noEmit -p tsconfig.test.json",
+    "test": "vitest run",
+    "prepack": "rm -f package.dev.json && cp package.json package.dev.json && node ../../../scripts/generate-plugin-package-json.mjs",
+    "postpack": "if [ -f package.dev.json ]; then mv package.dev.json package.json; fi"
+  },
+  "dependencies": {
+    "@Paperclipai/plugin-sdk": "workspace:*",
+    "@pierre/diffs": "^1.2.11"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "esbuild": "^0.28.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "typescript": "^5.7.3",
+    "vitest": "^4.1.10"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  }
+}
