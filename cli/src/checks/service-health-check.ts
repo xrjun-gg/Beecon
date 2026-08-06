@@ -79,7 +79,7 @@ export async function serviceHealthChecks(
           name: "Service definition",
           status: "fail",
           message: `Missing or drifted definition at ${manager.definitionPath}`,
-          repairHint: "Run `Paperclipai service install` to regenerate the service definition",
+          repairHint: "Run `beecon service install` to regenerate the service definition",
         },
   );
 
@@ -91,9 +91,9 @@ export async function serviceHealthChecks(
           name: "Service runtime",
           status: "fail",
           message: health.ok
-            ? `${status.serviceName} is inactive but the configured port is serving another Paperclip process`
+            ? `${status.serviceName} is inactive but the configured port is serving another Beecon process`
             : `${status.serviceName} is ${status.detail ?? "inactive"}`,
-          repairHint: "Run `Paperclipai service start`, or stop the conflicting foreground process first",
+          repairHint: "Run `beecon service start`, or stop the conflicting foreground process first",
         },
   );
 
@@ -107,14 +107,14 @@ export async function serviceHealthChecks(
           name: "Service health",
           status: "fail",
           message: health.error ?? "Health endpoint did not report ok",
-          repairHint: "Inspect `Paperclipai service status` and `Paperclipai service logs`",
+          repairHint: "Inspect `beecon service status` and `beecon service logs`",
         }
       : expectedVersion && health.version !== expectedVersion
         ? {
             name: "Service version",
             status: "fail",
             message: `Running ${health.version ?? "unknown"}; managed install is ${expectedVersion}`,
-            repairHint: "Run `Paperclipai service restart --expected-version " + expectedVersion + "`",
+            repairHint: "Run `beecon service restart --expected-version " + expectedVersion + "`",
           }
         : {
             name: "Service health",
@@ -128,7 +128,7 @@ export async function serviceHealthChecks(
       name: "Service linger",
       status: "warn",
       message: "Start-on-login is enabled but systemd user lingering is off",
-      repairHint: "Re-run `Paperclipai service install --enable-linger` if the service must survive logout",
+      repairHint: "Re-run `beecon service install --enable-linger` if the service must survive logout",
     });
   }
 

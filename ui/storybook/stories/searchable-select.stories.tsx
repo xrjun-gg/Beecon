@@ -65,7 +65,7 @@ const WORKSPACES: ReusableExecutionWorkspaceLike[] = [
 const LONG_WORKSPACES: ReusableExecutionWorkspaceLike[] = [
   {
     id: "ws-long-name",
-    name: "Paperclip-control-plane-existing-workspace-selector-long-running-validation-branch",
+    name: "beecon-control-plane-existing-workspace-selector-long-running-validation-branch",
     cwd: "/srv/Paperclip/home/Paperclipai/Paperclip/.Paperclip/worktrees/PAP-11722-existing-workspace-selector-with-a-very-long-path-segment-for-review",
     branchName: "feature/existing-workspace-selector-long-path-validation",
     status: "running",

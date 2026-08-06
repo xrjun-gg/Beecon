@@ -73,8 +73,8 @@ const POPULATED: ToolMcpGatewayWithTokens[] = [
         label: "Cursor",
         config: {
           mcpServers: {
-            "Paperclip-engineering-inbox": {
-              url: "https://Paperclip.app/api/mcp/gateways/engineering-inbox",
+            "beecon-engineering-inbox": {
+              url: "https://beecon.app/api/mcp/gateways/engineering-inbox",
               headers: { Authorization: "Bearer YOUR_TOKEN" },
             },
           },
@@ -86,8 +86,8 @@ const POPULATED: ToolMcpGatewayWithTokens[] = [
         label: "Claude Desktop",
         config: {
           mcpServers: {
-            "Paperclip-engineering-inbox": {
-              url: "https://Paperclip.app/api/mcp/gateways/engineering-inbox",
+            "beecon-engineering-inbox": {
+              url: "https://beecon.app/api/mcp/gateways/engineering-inbox",
               headers: { Authorization: "Bearer YOUR_TOKEN" },
             },
           },
@@ -99,9 +99,9 @@ const POPULATED: ToolMcpGatewayWithTokens[] = [
         label: "VS Code",
         config: {
           servers: {
-            "Paperclip-engineering-inbox": {
+            "beecon-engineering-inbox": {
               type: "http",
-              url: "https://Paperclip.app/api/mcp/gateways/engineering-inbox",
+              url: "https://beecon.app/api/mcp/gateways/engineering-inbox",
               headers: { Authorization: "Bearer YOUR_TOKEN" },
             },
           },
@@ -135,7 +135,7 @@ const POPULATED: ToolMcpGatewayWithTokens[] = [
         config: {
           mcpServers: {
             "Paperclip-support-ops": {
-              url: "https://Paperclip.app/api/mcp/gateways/support-ops",
+              url: "https://beecon.app/api/mcp/gateways/support-ops",
               headers: { Authorization: "Bearer YOUR_TOKEN" },
             },
           },

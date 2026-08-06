@@ -34,7 +34,7 @@ export async function doctor(opts: {
 }): Promise<{ passed: number; warned: number; failed: number }> {
   await printUpdateNotice(opts.config);
   printPaperclipCliBanner();
-  p.intro(pc.bgCyan(pc.black(" Paperclip doctor ")));
+  p.intro(pc.bgCyan(pc.black(" Beecon doctor ")));
 
   const configPath = resolveConfigPath(opts.config);
   loadPaperclipEnvFile(configPath);
@@ -58,7 +58,7 @@ export async function doctor(opts: {
       status: "fail",
       message: `Could not read config: ${err instanceof Error ? err.message : String(err)}`,
       canRepair: false,
-      repairHint: "Run `Paperclipai configure --section database` or `Paperclipai onboard`",
+      repairHint: "Run `beecon configure --section database` or `beecon onboard`",
     };
     results.push(readResult);
     printResult(readResult);

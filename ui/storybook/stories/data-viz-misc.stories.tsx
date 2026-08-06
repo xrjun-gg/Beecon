@@ -594,7 +594,7 @@ function CompanyPatternIconMatrix() {
 function AsciiArtAnimationDemo({ loading = false }: { loading?: boolean }) {
   return (
     <StoryShell>
-      <Section eyebrow="AsciiArtAnimation" title={loading ? "Loading art surface" : "Animated ASCII Paperclip field"}>
+      <Section eyebrow="AsciiArtAnimation" title={loading ? "Loading art surface" : "Animated ASCII Beecon field"}>
         <div className="h-[360px] overflow-hidden rounded-xl border border-border bg-background">
           {loading ? (
             <div className="flex h-full items-center justify-center gap-3 text-sm text-muted-foreground">

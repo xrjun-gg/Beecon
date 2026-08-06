@@ -10,7 +10,7 @@ export function configCheck(configPath?: string): CheckResult {
       status: "fail",
       message: `Config file not found at ${filePath}`,
       canRepair: false,
-      repairHint: "Run `Paperclipai onboard` to create one",
+      repairHint: "Run `beecon onboard` to create one",
     };
   }
 
@@ -27,7 +27,7 @@ export function configCheck(configPath?: string): CheckResult {
       status: "fail",
       message: `Invalid config: ${err instanceof Error ? err.message : String(err)}`,
       canRepair: false,
-      repairHint: "Run `Paperclipai configure --section database` (or `Paperclipai onboard` to recreate)",
+      repairHint: "Run `beecon configure --section database` (or `Paperclipai onboard` to recreate)",
     };
   }
 }
