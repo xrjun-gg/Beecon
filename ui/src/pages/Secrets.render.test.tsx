@@ -543,12 +543,12 @@ describe("Secrets page layout", () => {
     await flushReact();
 
     expect(document.body.textContent).toContain("Remove provider vault");
-    expect(document.body.textContent).toContain("from Paperclip only");
+    expect(document.body.textContent).toContain("from Beecon only");
     expect(document.body.textContent).toContain("does not delete");
     expect(document.body.textContent).toContain("AWS Secrets Manager");
 
     const confirmButton = [...document.querySelectorAll("button")].find(
-      (button) => button.textContent?.includes("Remove from Paperclip"),
+      (button) => button.textContent?.includes("Remove from Beecon"),
     ) as HTMLButtonElement | undefined;
     await act(async () => {
       confirmButton?.click();
@@ -1024,7 +1024,7 @@ describe("Secrets page layout", () => {
 
   it("explains AWS managed secret creation failures with actionable safe details", async () => {
     const rawProviderMessage =
-      "AccessDeniedException: arn:aws:sts::123456789012:assumed-role/prod/Paperclip is not authorized";
+      "AccessDeniedException: arn:aws:sts::123456789012:assumed-role/prod/Beecon is not authorized";
     mockSecretsApi.create.mockRejectedValueOnce(
       new ApiError("AWS Secrets Manager denied the request. Check IAM permissions for this provider vault.", 403, {
         details: {
@@ -1033,12 +1033,12 @@ describe("Secrets page layout", () => {
           operation: "secret.create",
           providerConfigId: "vault-aws",
           region: "us-east-1",
-          credentialPath: "Paperclip server runtime/provider credential path",
+          credentialPath: "Beecon server runtime/provider credential path",
           requiredCapability: "secretsmanager:CreateSecret",
           actionableMessage:
             "AWS managed secret creation needs secretsmanager:CreateSecret in the selected region for this provider vault.",
           safeAlternative:
-            "If the secret already exists in AWS, link it as an external reference instead of creating a Paperclip-managed value.",
+            "If the secret already exists in AWS, link it as an external reference instead of creating a Beecon-managed value.",
         },
       }),
     );
@@ -1227,7 +1227,7 @@ describe("Secrets page layout", () => {
 
   it("shows AWS discovery errors without replacing manual vault form values", async () => {
     const rawProviderMessage =
-      "AccessDeniedException: User: arn:aws:sts::123456789012:assumed-role/prod/Paperclip is not authorized";
+      "AccessDeniedException: User: arn:aws:sts::123456789012:assumed-role/prod/Beecon is not authorized";
     mockSecretsApi.providerConfigDiscoveryPreview.mockRejectedValueOnce(
       new ApiError("AWS Secrets Manager denied the request. Check IAM permissions for this provider vault.", 403, {
         details: {
@@ -1237,10 +1237,10 @@ describe("Secrets page layout", () => {
           providerConfigId: "discovery-preview",
           providerVaultContext: "draft_config",
           region: "us-west-2",
-          credentialPath: "Paperclip server runtime/provider credential path",
+          credentialPath: "Beecon server runtime/provider credential path",
           requiredCapability: "secretsmanager:ListSecrets",
           actionableMessage:
-            "AWS discovery preview needs secretsmanager:ListSecrets in the selected region for the Paperclip server runtime/provider credential path.",
+            "AWS discovery preview needs secretsmanager:ListSecrets in the selected region for the Beecon server runtime/provider credential path.",
           safeAlternative:
             "If the operator already knows the exact AWS Secrets Manager ARN, paste/link that ARN instead of using discovery. Exact-resource DescribeSecret and runtime read permissions are still required.",
         },
@@ -1285,7 +1285,7 @@ describe("Secrets page layout", () => {
     expect(errorBanner).not.toBeNull();
     expect(errorBanner?.textContent).toContain("AWS discovery needs ListSecrets permission");
     expect(errorBanner?.textContent).toContain("secretsmanager:ListSecrets");
-    expect(errorBanner?.textContent).toContain("Paperclip server runtime/provider credential path");
+    expect(errorBanner?.textContent).toContain("Beecon server runtime/provider credential path");
     expect(errorBanner?.textContent).toContain("paste/link that ARN");
     expect(errorBanner?.textContent).toContain("DescribeSecret");
     expect(errorBanner?.textContent).toContain("us-west-2");

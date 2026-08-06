@@ -68,11 +68,11 @@ describe("BreadcrumbContext", () => {
         [{ label: "Issues", href: "/issues" }, { label: "PAP-3515" }],
         "Anachronist Wiki",
       ),
-    ).toBe("PAP-3515 • Issues • Anachronist Wiki • Paperclip");
+    ).toBe("PAP-3515 • Issues • Anachronist Wiki • Beecon");
   });
 
   it("omits blank company names from page titles", () => {
-    expect(buildDocumentTitle([{ label: "Inbox" }], "  ")).toBe("Inbox • Paperclip");
-    expect(buildDocumentTitle([], null)).toBe("Paperclip");
+    expect(buildDocumentTitle([{ label: "Inbox" }], "  ")).toBe("Inbox • Beecon");
+    expect(buildDocumentTitle([], null)).toBe("Beecon");
   });
 });

@@ -147,7 +147,7 @@ function makeBuiltInAgentState(overrides: Partial<BuiltInAgentState> = {}): Buil
       displayName: "Briefs Agent",
       featureKeys: ["Briefs"],
       shortPurpose: "Generates briefs.",
-      defaultInstructions: "You are Paperclip's built-in Briefs agent.",
+      defaultInstructions: "You are Beecon's built-in Briefs agent.",
       defaultRole: "engineer",
     },
     status: "ready",
@@ -556,7 +556,7 @@ describe("Agents", () => {
     await flushReact();
 
     expect(container.textContent).toContain("Dev Laptop");
-    expect(container.textContent).toContain("Paperclip host");
+    expect(container.textContent).toContain("Beecon host");
   });
 
   it("reserves the environment column while environment metadata is loading", async () => {
@@ -884,7 +884,7 @@ describe("Agents", () => {
     expect(container.textContent).toContain("Built-in");
     expect(container.textContent).toContain("Briefs Agent");
     expect(container.textContent).not.toContain("Regular Agent");
-    expect(container.querySelector('[title="Ships with Paperclip"]')).toBeNull();
+    expect(container.querySelector('[title="Ships with Beecon"]')).toBeNull();
     expect(mockRouterState.navigate).not.toHaveBeenCalledWith("/agents/all", { replace: true });
   });
 

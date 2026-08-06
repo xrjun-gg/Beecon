@@ -448,7 +448,7 @@ export function OpenClawGatewayConfigFields({
 
       <Field label="Device auth">
         <div className="text-xs text-muted-foreground leading-relaxed">
-          When enabled, Paperclip persists a device key during onboarding so pairing approvals
+          When enabled, Beecon persists a device key during onboarding so pairing approvals
           remain stable across runs.
         </div>
       </Field>
