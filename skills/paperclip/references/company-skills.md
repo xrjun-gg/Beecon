@@ -4,7 +4,7 @@ Use this reference when a board user, CEO, or manager asks you to find a skill, 
 
 ## What Exists
 
-- App-shipped catalog: a curated set of company skills in `@Paperclipai/skills-catalog`, browseable and installable without leaving Paperclip.
+- App-shipped catalog: a curated set of company skills in `@Paperclipai/skills-catalog`, browseable and installable without leaving Beecon.
 - Company skill library: install, inspect, update, audit, reset, and read company skills for the whole company.
 - Agent skill assignment: add or remove company skills on an existing agent.
 - Hire/create composition: pass `desiredSkills` when creating or hiring an agent so the same assignment model applies immediately.
@@ -58,7 +58,7 @@ Agent attach and hire/create composition:
 - `POST /api/companies/:companyId/agents`
 
 If a board user, CEO, or manager is driving locally, prefer the
-`Paperclipai skills` CLI documented in `doc/CLI.md` — it wraps every endpoint
+`beecon skills` CLI documented in `doc/CLI.md` — it wraps every endpoint
 above, accepts company skill or catalog refs by `id`/`key`/`slug`, and prints
 the same JSON these endpoints return when called with `--json`.
 
@@ -248,7 +248,7 @@ curl -sS -X POST "$Paperclip_API_URL/api/companies/$Paperclip_COMPANY_ID/agents"
 
 ## Notes
 
-- Built-in Paperclip runtime skills are still added automatically when required by the adapter.
+- Built-in Beecon runtime skills are still added automatically when required by the adapter.
 - If a reference is missing or ambiguous, the API returns `422`.
 - Prefer linking back to the relevant issue, approval, and agent when you comment about skill changes.
 - Use company portability routes when you need whole-package import/export, not just a skill:

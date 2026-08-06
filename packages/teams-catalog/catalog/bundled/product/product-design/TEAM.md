@@ -20,7 +20,7 @@ tags:
 requiredSkills:
   - Paperclipai/bundled/product/wireframe
   - Paperclipai/optional/product/design-critique
-  - Paperclipai/bundled/Paperclip-operations/task-planning
+  - Paperclipai/bundled/Beecon-operations/task-planning
 ---
 
 # Product Design
@@ -41,4 +41,4 @@ A minimal design team built around a single Principal Product Designer. Install 
 
 ## Migration notes
 
-Derived from the `UXDesigner` template in `skills/Paperclip-create-agent/references/agents/uxdesigner.md`. The full visual-quality and design-lens documentation lives in the template's `AGENTS.md` body rather than as `references/` files so the catalog manifest stays at trust level `markdown_only`. Adapter type is intentionally omitted from frontmatter; the import preview lets operators pick `claude_local`, `codex_local`, or another adapter at install time.
+Derived from the `UXDesigner` template in `skills/Beecon-create-agent/references/agents/uxdesigner.md`. The full visual-quality and design-lens documentation lives in the template's `AGENTS.md` body rather than as `references/` files so the catalog manifest stays at trust level `markdown_only`. Adapter type is intentionally omitted from frontmatter; the import preview lets operators pick `claude_local`, `codex_local`, or another adapter at install time.

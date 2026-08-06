@@ -24,7 +24,7 @@ pnpm test
 pnpm build
 ```
 
-## Install Into Paperclip
+## Install Into Beecon
 
 Use an absolute local path during development:
 

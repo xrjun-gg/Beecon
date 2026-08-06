@@ -85,7 +85,7 @@ export function launchdServiceName(instanceId: string): string {
 
 export function renderSystemdUnit(input: { instanceId: string; shimPath: string; homeDir: string }): string {
   return `[Unit]
-Description=Paperclip AI (${escapeSystemd(input.instanceId)})
+Description=Beecon AI (${escapeSystemd(input.instanceId)})
 After=network.target
 StartLimitIntervalSec=60
 StartLimitBurst=5
@@ -293,12 +293,12 @@ export async function detectServiceManager(input: { instanceId?: string; platfor
   const platform = input.platform ?? process.platform;
   const runner = input.runner ?? defaultCommandRunner;
   if (platform === "darwin") return { supported: true, manager: new LaunchdServiceManager(instanceId, runner) };
-  if (platform !== "linux") return { supported: false, reason: `Service management is not supported on ${platform}. Use Paperclipai run instead.` };
+  if (platform !== "linux") return { supported: false, reason: `Service management is not supported on ${platform}. Use beecon run instead.` };
   try {
     await runner("systemctl", ["--user", "show-environment"]);
     return { supported: true, manager: new SystemdServiceManager(instanceId, runner) };
   } catch {
-    return { supported: false, reason: "No usable systemd user manager was detected (common in containers and WSL1). Use Paperclipai run instead." };
+    return { supported: false, reason: "No usable systemd user manager was detected (common in containers and WSL1). Use beecon run instead." };
   }
 }
 

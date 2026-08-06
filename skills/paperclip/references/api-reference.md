@@ -1,6 +1,6 @@
-# Paperclip API Reference
+# Beecon API Reference
 
-Detailed reference for the Paperclip control plane API. For the core heartbeat procedure and critical rules, see the main `SKILL.md`.
+Detailed reference for the Beecon control plane API. For the core heartbeat procedure and critical rules, see the main `SKILL.md`.
 
 ---
 
@@ -99,7 +99,7 @@ POST /api/companies/company-1/exports
   "selectedFiles": [
     "COMPANY.md",
     "agents/ceo/AGENTS.md",
-    "skills/Paperclip/SKILL.md",
+    "skills/Beecon/SKILL.md",
     "tasks/pap-42/TASK.md"
   ]
 }
@@ -414,7 +414,7 @@ Interpretation:
 - `returnAssignee` is who gets the task back when changes are requested
 - `lastDecisionOutcome` shows the latest gate decision
 
-There is **no separate execution-decision endpoint**. Review and approval decisions are submitted through `PATCH /api/issues/:issueId`, and Paperclip records the decision row automatically.
+There is **no separate execution-decision endpoint**. Review and approval decisions are submitted through `PATCH /api/issues/:issueId`, and Beecon records the decision row automatically.
 
 ### Cross-Agent Review Gates
 
@@ -438,12 +438,12 @@ PATCH /api/issues/:issueId
 }
 ```
 
-When the executor finishes work, move the source issue to `in_review`. Paperclip advances the issue to the active stage participant through `executionState.currentParticipant`, and that participant decides through the normal issue update route:
+When the executor finishes work, move the source issue to `in_review`. Beecon advances the issue to the active stage participant through `executionState.currentParticipant`, and that participant decides through the normal issue update route:
 
 - approve/sign off with `PATCH /api/issues/:issueId` using `{ "status": "done", "comment": "Approved: ..." }`
 - request changes with `PATCH /api/issues/:issueId` using `{ "status": "in_progress", "comment": "Changes requested: ..." }`
 
-Agent heartbeat implementations should follow the Paperclip skill's **Execution-policy review/approval wakes** procedure when they are assigned as the active gate participant.
+Agent heartbeat implementations should follow the Beecon skill's **Execution-policy review/approval wakes** procedure when they are assigned as the active gate participant.
 
 Do not model cross-agent review gates as bridge child issues, freeform comments, ad-hoc `request_confirmation` cards, responder fields, mention grants, or broadened comment/interaction authorization. Those workarounds either split the audit trail away from the source issue or loosen authorization around who may decide. The native execution-stage path keeps the gate, reviewer authority, return assignee, decision row, wake behavior, and audit history on the issue that is actually being reviewed.
 
@@ -538,7 +538,7 @@ DELETE /api/issues/issue-310/inbox-archive
 -> { "ok": true, "userId": "user-7" }
 ```
 
-Both mutations require `X-Paperclip-Run-Id` and write activity-log entries. Archive state is per user, reversible, and may be invalidated by later activity that resurfaces the issue. Agent policy is default-open for the responsible user, unless that user disables agent inbox management or restricts it to an allowlist.
+Both mutations require `X-Beecon-Run-Id` and write activity-log entries. Archive state is per user, reversible, and may be invalidated by later activity that resurfaces the issue. Agent policy is default-open for the responsible user, unless that user disables agent inbox management or restricts it to an allowlist.
 
 Pass `{ "userId": "user-9" }` only for an intentional cross-user operation. The agent must have `inbox:manage`, optionally scoped to that user. A missing responsible user, disabled policy, allowlist denial, low-trust boundary, or missing cross-user grant returns `403`; do not work around those denials.
 
@@ -568,7 +568,7 @@ PATCH /api/issues/issue-77
 { "status": "done", "comment": "QA signoff complete. Verified the regression and test coverage." }
 ```
 
-Paperclip writes the execution decision automatically. If another stage remains, the issue stays in `in_review` and is reassigned to the next participant. If this was the final stage, the issue reaches actual `done`.
+Beecon writes the execution decision automatically. If another stage remains, the issue stays in `in_review` and is reassigned to the next participant. If this was the final stage, the issue reaches actual `done`.
 
 To request changes, use a non-`done` status with a required comment. Prefer `in_progress`:
 
@@ -577,7 +577,7 @@ PATCH /api/issues/issue-77
 { "status": "in_progress", "comment": "Changes requested: add a regression test for the empty-state path." }
 ```
 
-Paperclip converts that into a `changes_requested` decision, reassigns the issue to `returnAssignee`, and routes it back to the same stage when the executor resubmits.
+Beecon converts that into a `changes_requested` decision, reassigns the issue to `returnAssignee`, and routes it back to the same stage when the executor resubmits.
 
 ---
 
@@ -616,7 +616,7 @@ POST /api/companies/company-1/issues
 
 POST /api/companies/company-1/issues
 { "title": "Write load test suite", "assigneeAgentId": "agent-55", "parentId": "issue-30", "status": "blocked", "priority": "medium", "goalId": "goal-1", "blockedByIssueIds": ["<caching-layer-issue-id>"] }
-# ^ Load tests depend on caching layer being done first. Paperclip will auto-wake agent-55 when the blocker resolves.
+# ^ Load tests depend on caching layer being done first. Beecon will auto-wake agent-55 when the blocker resolves.
 
 PATCH /api/issues/issue-30
 { "status": "done", "comment": "Broke down into subtasks for caching layer and load testing." }
@@ -789,14 +789,14 @@ When a CEO/manager task asks you to "set up a new project" and wire local + GitH
 ```
 POST /api/companies/{companyId}/projects
 {
-  "name": "Paperclip Mobile App",
+  "name": "Beecon Mobile App",
   "description": "Ship iOS + Android client",
   "status": "planned",
   "goalIds": ["{goalId}"],
   "workspace": {
-    "name": "Paperclip-mobile",
-    "cwd": "/Users/me/Paperclip-mobile",
-    "repoUrl": "https://github.com/acme/Paperclip-mobile",
+    "name": "Beecon-mobile",
+    "cwd": "/Users/me/Beecon-mobile",
+    "repoUrl": "https://github.com/acme/Beecon-mobile",
     "repoRef": "main",
     "isPrimary": true
   }
@@ -808,15 +808,15 @@ POST /api/companies/{companyId}/projects
 ```
 POST /api/companies/{companyId}/projects
 {
-  "name": "Paperclip Mobile App",
+  "name": "Beecon Mobile App",
   "description": "Ship iOS + Android client",
   "status": "planned"
 }
 
 POST /api/projects/{projectId}/workspaces
 {
-  "cwd": "/Users/me/Paperclip-mobile",
-  "repoUrl": "https://github.com/acme/Paperclip-mobile",
+  "cwd": "/Users/me/Beecon-mobile",
+  "repoUrl": "https://github.com/acme/Beecon-mobile",
   "repoRef": "main",
   "isPrimary": true
 }
@@ -854,7 +854,7 @@ If company policy requires approval, the new agent is created as `pending_approv
 **Do NOT** request hires unless you are a manager or CEO. IC agents should ask their manager.
 Leave timer heartbeats off by default for new hires. Only enable a scheduled heartbeat when the role truly needs recurring timed work or the user explicitly asked for one.
 
-Use `Paperclip-create-agent` for the full hiring workflow (reflection + config comparison + prompt drafting).
+Use `Beecon-create-agent` for the full hiring workflow (reflection + config comparison + prompt drafting).
 
 ### CEO strategy approval
 
@@ -908,7 +908,7 @@ POST /api/issues/{issueId}/interactions
 Resolver governance:
 
 - Create accepts optional `resolverPolicy: "board_only" | "board_or_agents"`. If omitted, the company per-kind default applies (`ask_user_questions` defaults to `board_or_agents`; every other kind defaults to `board_only`). The response snapshots immutable `requestedResolverPolicy` and `effectiveResolverPolicy`; later governance edits never widen an existing pending card. `PATCH /api/companies/{companyId}` accepts `interactionResolverGovernance` keyed by kind, with optional `defaultPolicy` and `cap`; a `board_only` cap always wins.
-- Create also accepts optional `addresseeAgentId` (an invokable same-company agent other than the creator) for structured agent-to-agent asks: Paperclip wakes the addressee with reason `interaction_pending`, only the addressee or a board user may resolve, and the pending card is omitted from the company attention feed. Not allowed with `request_confirmation.payload.toolAction` (`400`).
+- Create also accepts optional `addresseeAgentId` (an invokable same-company agent other than the creator) for structured agent-to-agent asks: Beecon wakes the addressee with reason `interaction_pending`, only the addressee or a board user may resolve, and the pending card is omitted from the company attention feed. Not allowed with `request_confirmation.payload.toolAction` (`400`).
 - When `effectiveResolverPolicy` is `board_or_agents`, an eligible agent resolves through the same `accept`/`reject`/`respond`/`verdicts` routes with run-authenticated identity; resolution records `resolvedByAgentId`/`resolvedByRunId`. The resolver cannot be the creator agent or source run, low-trust and watchdog-scoped actors are denied, and `payload.toolAction` confirmations stay board-only regardless of policy.
 
 Rules:
@@ -1195,7 +1195,7 @@ Terminal states: `done`, `cancelled`
 - `parentId` is structural and does not create a blocker relationship by itself.
 - Use formal approvals for governed actions such as hires, budget overrides, or CEO strategy gates.
 - Use issue-thread interactions for issue-scoped board/user decisions such as plan acceptance, proposed task breakdowns, or missing-answer questions.
-- Use `blockedByIssueIds` for real work dependencies between issues so Paperclip can wake the blocked assignee when all blockers resolve.
+- Use `blockedByIssueIds` for real work dependencies between issues so Beecon can wake the blocked assignee when all blockers resolve.
 
 ---
 
@@ -1399,4 +1399,4 @@ Every successful or failed value fetch writes both `secret_access_events` and `a
 | @-mention agents for no reason              | Each mention triggers a budget-consuming heartbeat    | Only mention agents who need to act                     |
 | Sit silently on blocked work                | Nobody knows you're stuck; the task rots              | Comment the blocker and escalate immediately            |
 | Leave tasks in ambiguous states             | Others can't tell if work is progressing              | Always update status: `blocked`, `in_review`, or `done` |
-| Block on another task without `blockedByIssueIds` | No automatic wake when blocker resolves; manual follow-up needed | Set `blockedByIssueIds` so Paperclip auto-wakes the assignee when all blockers are done |
+| Block on another task without `blockedByIssueIds` | No automatic wake when blocker resolves; manual follow-up needed | Set `blockedByIssueIds` so Beecon auto-wakes the assignee when all blockers are done |

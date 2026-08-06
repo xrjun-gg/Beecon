@@ -1,7 +1,7 @@
 # OpenClaw Gateway Onboarding and Test Plan
 
 ## Scope
-This plan is now **gateway-only**. Paperclip supports OpenClaw through `openclaw_gateway` only.
+This plan is now **gateway-only**. Beecon supports OpenClaw through `openclaw_gateway` only.
 
 - Removed path: legacy `openclaw` adapter (`/v1/responses`, `/hooks/*`, SSE/webhook transport switching)
 - Supported path: `openclaw_gateway` over WebSocket (`ws://` or `wss://`)
@@ -24,7 +24,7 @@ This plan is now **gateway-only**. Paperclip supports OpenClaw through `openclaw
 - `agentDefaultsPayload.url: ws://... | wss://...`
 - `agentDefaultsPayload.headers["x-openclaw-token"]`
 5. Board approves join request.
-6. OpenClaw claims API key and installs/uses Paperclip skill.
+6. OpenClaw claims API key and installs/uses Beecon skill.
 7. First task run may trigger pairing approval once; after approval, pairing persists via stored device key.
 
 ## Technical Contract (Gateway)

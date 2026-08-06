@@ -72,7 +72,7 @@ function makePreview(errors: string[] = []): CatalogTeamImportPreviewResult {
     portabilityPreview: {
       include: { company: false, agents: true, projects: true, issues: false, skills: true },
       targetCompanyId: "company-storybook",
-      targetCompanyName: "Paperclip",
+      targetCompanyName: "Beecon",
       collisionStrategy: "rename",
       selectedAgentSlugs: ["ceo", "cto", "cmo"],
       plan: {
@@ -346,7 +346,7 @@ export const InstallSuccess: Story = {
         result={{
           team: baseTeam,
           portabilityImport: {
-            company: { id: "company-storybook", name: "Paperclip", action: "unchanged" },
+            company: { id: "company-storybook", name: "Beecon", action: "unchanged" },
             agents: [
               { slug: "ceo", id: "a1", action: "created", name: "CEO", reason: null },
               { slug: "cto", id: "a2", action: "created", name: "CTO", reason: null },

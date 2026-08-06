@@ -25,7 +25,7 @@ Never print or paste API keys. The helper reads credentials from environment var
 
 ## Create a Bridge Key
 
-Create the key from a board-authenticated Paperclip API session and store the returned token once:
+Create the key from a board-authenticated Beecon API session and store the returned token once:
 
 ```sh
 curl -X POST "$Paperclip_API_URL/api/agents/$HERMES_AGENT_ID/keys" \
@@ -59,7 +59,7 @@ node ./Paperclip-task.mjs comment --issue PAP-123 --body "Found the failing requ
 node ./Paperclip-task.mjs update-status --issue PAP-123 --status in_review --comment "Ready for review."
 ```
 
-`create-task` defaults to assigning the task to the authenticated Hermes agent so the work is immediately actionable. Use `--unassigned` to create backlog work instead. Use `--assignee-agent-id <uuid>` only when the Paperclip API key has permission to assign work to that agent.
+`create-task` defaults to assigning the task to the authenticated Hermes agent so the work is immediately actionable. Use `--unassigned` to create backlog work instead. Use `--assignee-agent-id <uuid>` only when the Beecon API key has permission to assign work to that agent.
 
 For multiline bodies, prefer files or stdin:
 
@@ -71,7 +71,7 @@ node ./Paperclip-task.mjs comment --issue PAP-123 --body-file -
 ## Workflow Expectations
 
 - Keep tasks company-scoped by using the company resolved from the scoped agent key.
-- Let Paperclip activity logging come from the normal API endpoints; do not write local logs that include credentials.
+- Let Beecon activity logging come from the normal API endpoints; do not write local logs that include credentials.
 - Use comments for durable progress.
 - Use `update-status` only when the issue has a real disposition: `done`, `in_review`, `blocked`, `todo`, `in_progress`, `backlog`, or `cancelled`.
-- Use `list-assigned` before creating duplicate work when the user asks about current Paperclip assignments.
+- Use `list-assigned` before creating duplicate work when the user asks about current Beecon assignments.

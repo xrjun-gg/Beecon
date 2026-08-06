@@ -126,7 +126,7 @@ const budgetIncidents: BudgetIncident[] = [
     policyId: "budget-company",
     scopeType: "company",
     scopeId: "company-storybook",
-    scopeName: "Paperclip Storybook",
+    scopeName: "Beecon Storybook",
     metric: "billed_cents",
     windowKind: "calendar_month_utc",
     windowStart,

@@ -61,15 +61,15 @@ normal Beecon use.
 ### 1. Optional: override the built-in for adapter development
 
 For local adapter development, install the package from a local path in Adapter
-manager, or add an entry to `~/.Paperclip/adapter-plugins.json` and restart
+manager, or add an entry to `~/.Beecon/adapter-plugins.json` and restart
 Beecon. The external package can override either built-in Hermes adapter
 while it is enabled:
 
 ```json
 [
   {
-    "packageName": "@Paperclipai/hermes-Paperclip-adapter",
-    "localPath": "/absolute/path/to/Paperclip/packages/adapters/hermes",
+    "packageName": "@Paperclipai/hermes-Beecon-adapter",
+    "localPath": "/absolute/path/to/Beecon/packages/adapters/hermes",
     "type": "hermes_local",
     "installedAt": "2026-06-23T00:00:00.000Z"
   }
@@ -83,7 +83,7 @@ The package root exports `createServerAdapter()` for the local server adapter,
 a declarative config schema for the generic agent form, and `./ui-parser` for
 local run transcript parsing. Gateway entrypoints are exported from `./gateway`,
 `./gateway/server`, `./gateway/ui`, `./gateway/cli`, and `./gateway/ui-parser`.
-Paperclip core imports these same package entrypoints for built-in adapter
+Beecon core imports these same package entrypoints for built-in adapter
 registration.
 
 ### 2. Create a local Hermes agent in Beecon
@@ -135,9 +135,9 @@ Then create an agent with adapter type `hermes_gateway`:
 
 If the URL you have is the default Hermes dashboard at
 `http://127.0.0.1:9119` or the default chat URL at
-`http://127.0.0.1:9119/chat`, Paperclip maps it to
+`http://127.0.0.1:9119/chat`, Beecon maps it to
 `http://127.0.0.1:9119/api` before calling Hermes API routes. `/chat` and the
-dashboard root are browser UI routes; Paperclip tests `/api/health` and starts
+dashboard root are browser UI routes; Beecon tests `/api/health` and starts
 runs with `/api/v1/runs` after mapping them to the API base.
 
 This mode does not start Hermes. It creates runs with `POST /v1/runs`, streams
@@ -148,14 +148,14 @@ with `POST /v1/runs/{run_id}/stop`.
 
 `@Paperclipai/adapter-hermes-gateway` remains as a deprecated compatibility shim
 for one release. It re-exports the gateway entrypoints from
-`@Paperclipai/hermes-Paperclip-adapter/gateway` and preserves the legacy exports
-for existing plugin installs. New installs and built-in Paperclip registrations
-should use `@Paperclipai/hermes-Paperclip-adapter`; the adapter type remains
+`@Paperclipai/hermes-Beecon-adapter/gateway` and preserves the legacy exports
+for existing plugin installs. New installs and built-in Beecon registrations
+should use `@Paperclipai/hermes-Beecon-adapter`; the adapter type remains
 `hermes_gateway`.
 
 ### Runtime API guidance
 
-Hermes receives Paperclip runtime identity through environment variables:
+Hermes receives Beecon runtime identity through environment variables:
 
 - `Paperclip_API_URL`
 - `Paperclip_API_KEY`
@@ -163,18 +163,18 @@ Hermes receives Paperclip runtime identity through environment variables:
 
 Prompts should reference those variables directly. Command output may redact
 secret values, so do not copy printed tokens into comments or config. Use
-`Authorization: Bearer $Paperclip_API_KEY` on Paperclip API requests and
-`X-Paperclip-Run-Id: $Paperclip_RUN_ID` on mutating issue requests. For
+`Authorization: Bearer $Paperclip_API_KEY` on Beecon API requests and
+`X-Beecon-Run-Id: $Paperclip_RUN_ID` on mutating issue requests. For
 multiline comments or status updates, preserve newlines with a heredoc plus
 `jq --arg`.
 
-### Hermes-originated Paperclip tasks
+### Hermes-originated Beecon tasks
 
 The package includes a Hermes skill/helper for the reverse direction: a user
-starts in Hermes and asks Hermes to create or update Paperclip work. This is not
-the same as Paperclip waking Hermes through `hermes_local` or `hermes_gateway`.
+starts in Hermes and asks Hermes to create or update Beecon work. This is not
+the same as Beecon waking Hermes through `hermes_local` or `hermes_gateway`.
 
-Configure Paperclip access in Hermes env/profile secrets, not prompt text:
+Configure Beecon access in Hermes env/profile secrets, not prompt text:
 
 ```bash
 Paperclip_API_URL=http://127.0.0.1:3100/api
@@ -187,14 +187,14 @@ Optional env values:
 - `Paperclip_AGENT_ID`
 - `Paperclip_RUN_ID`
 
-The bundled `Paperclip-task-bridge` skill provides deterministic helper
+The bundled `Beecon-task-bridge` skill provides deterministic helper
 commands:
 
 ```bash
-node ./Paperclip-task.mjs list-assigned
-node ./Paperclip-task.mjs create-task --parent-id "<approved-parent-issue-id>" --title "Investigate checkout failures" --description "Capture failing request and root cause."
-node ./Paperclip-task.mjs comment --issue PAP-123 --body "Found the failing request path."
-node ./Paperclip-task.mjs update-status --issue PAP-123 --status in_review --comment "Ready for review."
+node ./Beecon-task.mjs list-assigned
+node ./Beecon-task.mjs create-task --parent-id "<approved-parent-issue-id>" --title "Investigate checkout failures" --description "Capture failing request and root cause."
+node ./Beecon-task.mjs comment --issue PAP-123 --body "Found the failing request path."
+node ./Beecon-task.mjs update-status --issue PAP-123 --status in_review --comment "Ready for review."
 ```
 
 The helper reads credentials from environment variables and prints only JSON
@@ -207,11 +207,11 @@ internet-facing Hermes chat/webhook task-bridge operations.
 
 ### 4. Assign work
 
-Create issues in Paperclip and assign them to your Hermes agent. On each heartbeat, Hermes will:
+Create issues in Beecon and assign them to your Hermes agent. On each heartbeat, Hermes will:
 
 1. Receive the task instructions
 2. Use its full tool suite to complete the work
-3. Report results back to Paperclip
+3. Report results back to Beecon
 4. Persist session state for continuity
 
 ## Configuration Reference
@@ -251,7 +251,7 @@ Available toolsets: `terminal`, `file`, `web`, `browser`, `code_execution`, `vis
 | `extraArgs` | string[] | `[]` | Additional CLI arguments |
 | `env` | object | `{}` | Extra environment variables |
 | `promptTemplate` | string | *(built-in)* | Custom prompt template |
-| `PaperclipApiUrl` | string | `http://127.0.0.1:3100/api` | Paperclip API base URL |
+| `PaperclipApiUrl` | string | `http://127.0.0.1:3100/api` | Beecon API base URL |
 
 ### Prompt Template Variables
 
@@ -259,7 +259,7 @@ Use `{{variable}}` syntax in `promptTemplate`:
 
 | Variable | Description |
 |----------|-------------|
-| `{{agentId}}` | Paperclip agent ID |
+| `{{agentId}}` | Beecon agent ID |
 | `{{agentName}}` | Agent display name |
 | `{{companyId}}` | Company ID |
 | `{{companyName}}` | Company name |
@@ -268,7 +268,7 @@ Use `{{variable}}` syntax in `promptTemplate`:
 | `{{taskTitle}}` | Task title |
 | `{{taskBody}}` | Task instructions |
 | `{{projectName}}` | Project name |
-| `{{PaperclipApiUrl}}` | Paperclip API base URL |
+| `{{PaperclipApiUrl}}` | Beecon API base URL |
 | `{{commentId}}` | Comment ID (when woken by a comment) |
 | `{{wakeReason}}` | Reason this run was triggered |
 
@@ -281,7 +281,7 @@ Conditional sections:
 ## Architecture
 
 ```
-Paperclip                          Hermes Agent
+Beecon                          Hermes Agent
 ┌──────────────────┐               ┌──────────────────┐
 │  Heartbeat       │               │                  │
 │  Scheduler       │───execute()──▶│  hermes chat -q  │
@@ -304,7 +304,7 @@ processes the task using its full tool suite, then exits. The adapter:
 3. **Post-processes** Hermes ASCII formatting (banners, setext headings, table borders) into clean GFM markdown
 4. **Reclassifies** benign stderr (MCP init, structured logs) so they don't show as errors
 5. **Tags** sessions as `tool` source to keep them separate from interactive usage
-6. **Reports** results back to Paperclip with cost, usage, and session state
+6. **Reports** results back to Beecon with cost, usage, and session state
 
 Session persistence works via Hermes's `--resume` flag — each run picks
 up where the last one left off, maintaining conversation context,
@@ -315,17 +315,17 @@ and migrates session state between runs.
 
 The adapter scans two skill sources and merges them:
 
-- **Paperclip-managed skills** — bundled with the adapter, togglable from the UI
+- **Beecon-managed skills** — bundled with the adapter, togglable from the UI
 - **Hermes-native skills** — from `~/.hermes/skills/`, read-only, always loaded
 
 The `listSkills` / `syncSkills` APIs expose a unified snapshot so the
-Paperclip UI can display both managed and native skills in one view.
+Beecon UI can display both managed and native skills in one view.
 
 ## Development
 
 ```bash
-git clone https://github.com/Paperclipai/Paperclip
-cd Paperclip/packages/adapters/hermes
+git clone https://github.com/Paperclipai/Beecon
+cd Beecon/packages/adapters/hermes
 pnpm install
 pnpm build
 ```
@@ -337,6 +337,6 @@ MIT — see [LICENSE](LICENSE)
 ## Links
 
 - [Hermes Agent](https://github.com/NousResearch/hermes-agent) — The AI agent this adapter runs
-- [Paperclip](https://github.com/Paperclipai/Paperclip) — The orchestration platform
+- [Beecon](https://github.com/Paperclipai/Beecon) — The orchestration platform
 - [Nous Research](https://nousresearch.com) — The team behind Hermes
-- [Paperclip Docs](https://docs.Paperclip.ing) — Paperclip documentation
+- [Beecon Docs](https://docs.Paperclip.ing) — Beecon documentation

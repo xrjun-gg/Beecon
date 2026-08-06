@@ -205,7 +205,7 @@ function AllStates() {
 }
 
 const meta = {
-  title: "Paperclip/Assigned Backlog Safeguards",
+  title: "Beecon/Assigned Backlog Safeguards",
   component: AllStates,
   parameters: { layout: "fullscreen" },
 } satisfies Meta<typeof AllStates>;

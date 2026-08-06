@@ -4,17 +4,17 @@
 
 <p align="center">
   <a href="#quickstart"><strong>Quickstart</strong></a> &middot;
-  <a href="https://docs.Paperclip.ing"><strong>Docs</strong></a> &middot;
-  <a href="https://github.com/Paperclipai/Paperclip"><strong>GitHub</strong></a> &middot;
+  <a href="https://docs.beecon.ing"><strong>Docs</strong></a> &middot;
+  <a href="https://github.com/beecon-ai/beecon"><strong>GitHub</strong></a> &middot;
   <a href="https://discord.gg/m4HZY7xNG3"><strong>Discord</strong></a> &middot;
-  <a href="https://x.com/Papercliping"><strong>Twitter</strong></a> &middot;
-  <a href="https://Paperclip.ing"><strong>Website</strong></a>
+  <a href="https://x.com/beeconai"><strong>Twitter</strong></a> &middot;
+  <a href="https://beecon.ing"><strong>Website</strong></a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/Paperclipai/Paperclip/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT License" /></a>
-  <a href="https://github.com/Paperclipai/Paperclip/stargazers"><img src="https://img.shields.io/github/stars/Paperclipai/Paperclip?style=flat" alt="Stars" /></a>
-  <a href="https://www.star-history.com/Paperclipai/Paperclip"><img src="https://api.star-history.com/badge?repo=Paperclipai/Paperclip" alt="Star History Rank" /></a>
+  <a href="https://github.com/beecon-ai/beecon/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT License" /></a>
+  <a href="https://github.com/beecon-ai/beecon/stargazers"><img src="https://img.shields.io/github/stars/beecon-ai/beecon?style=flat" alt="Stars" /></a>
+  <a href="https://www.star-history.com/beecon-ai/beecon"><img src="https://api.star-history.com/badge?repo=beecon-ai/beecon" alt="Star History Rank" /></a>
   <a href="https://discord.gg/m4HZY7xNG3"><img src="https://img.shields.io/badge/discord-join-7289da" alt="Discord" /></a>
 </p>
 
@@ -82,9 +82,9 @@ It looks like a task manager. Under the hood: org charts, budgets, governance, g
 Four things have to work for an organization of AI agents to actually produce: the tasks, the org, the training, and the infrastructure. Beecon is built around exactly those four pillars.
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Paperclipai/Paperclip/1ec33ffd8b597f7e36aac3e2fbb4665b8c42dc3c/doc/assets/four-pillars-dark.png">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Paperclipai/Paperclip/1ec33ffd8b597f7e36aac3e2fbb4665b8c42dc3c/doc/assets/four-pillars-light.png">
-  <img src="https://raw.githubusercontent.com/Paperclipai/Paperclip/1ec33ffd8b597f7e36aac3e2fbb4665b8c42dc3c/doc/assets/four-pillars-light.png" alt="The four pillars of Beecon">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/beecon-ai/beecon/1ec33ffd8b597f7e36aac3e2fbb4665b8c42dc3c/doc/assets/four-pillars-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/beecon-ai/beecon/1ec33ffd8b597f7e36aac3e2fbb4665b8c42dc3c/doc/assets/four-pillars-light.png">
+  <img src="https://raw.githubusercontent.com/beecon-ai/beecon/1ec33ffd8b597f7e36aac3e2fbb4665b8c42dc3c/doc/assets/four-pillars-light.png" alt="The four pillars of Beecon">
 </picture>
 
 | Pillar | Built for | What it covers |
@@ -301,8 +301,8 @@ Beecon is a full control plane, not a wrapper. Before you build any of this your
 Open source. Self-hosted. No Beecon account required.
 
 ```bash
-curl -fsSLO https://Paperclip.ing/install.sh
-curl -fsSLO https://Paperclip.ing/install.sh.sha256
+curl -fsSLO https://beecon.ing/install.sh
+curl -fsSLO https://beecon.ing/install.sh.sha256
 if command -v sha256sum >/dev/null 2>&1; then
   sha256sum -c install.sh.sha256
 else
@@ -312,7 +312,7 @@ bash install.sh
 ```
 
 The installer ensures Node.js 20 or newer is available, installs a managed
-Beecon CLI under `~/.Paperclip/cli`, and starts interactive onboarding. It
+Beecon CLI under `~/.beecon/cli`, and starts interactive onboarding. It
 can also install Beecon as a background service on supported Linux and
 macOS systems. The checksum detects transfer or publishing mistakes, but it is
 served from the same origin as the script; use a release-tag or commit-pinned
@@ -321,8 +321,8 @@ GitHub copy when you need an independently hosted source.
 For a non-interactive managed install:
 
 ```bash
-curl -fsSL https://Paperclip.ing/install.sh | bash -s -- --no-prompt --no-onboard
-Paperclipai onboard --yes
+curl -fsSL https://beecon.ing/install.sh | bash -s -- --no-prompt --no-onboard
+beecon onboard --yes
 ```
 
 The piped form requires supported Node.js, npm, and npx to already be present.
@@ -330,15 +330,15 @@ If Node.js bootstrap is required, download and review `install.sh` before
 running it so no privileged dependency-install command is accepted through a
 pipe.
 
-To try Paperclip without installing anything permanently:
+To try Beecon without installing anything permanently:
 
 ```bash
-npx --registry https://registry.npmjs.org Paperclipai onboard --yes
+npx --registry https://registry.npmjs.org beecon onboard --yes
 ```
 
 > **Troubleshooting: private npm registry `.npmrc`**
 >
-> If this fails with an `E404` for `Paperclipai` (or similar) and you use a private npm registry (for example GitHub Packages) via a global `~/.npmrc`, `npx` may be resolving `Paperclipai` against that private registry instead of the public npm registry.
+> If this fails with an `E404` for `beecon` (or similar) and you use a private npm registry (for example GitHub Packages) via a global `~/.npmrc`, `npx` may be resolving `beecon` against that private registry instead of the public npm registry.
 >
 > Diagnostic:
 >
@@ -349,18 +349,18 @@ npx --registry https://registry.npmjs.org Paperclipai onboard --yes
 > Workaround (cross-platform; force the public npm registry for this command):
 >
 > ```bash
-> npx --registry https://registry.npmjs.org Paperclipai onboard --yes
+> npx --registry https://registry.npmjs.org beecon onboard --yes
 > ```
 
 That quickstart path now defaults to trusted local loopback mode for the fastest first run. To start in authenticated/private mode instead, choose a bind preset explicitly:
 
 ```bash
-Paperclipai onboard --yes --bind lan
+beecon onboard --yes --bind lan
 # or:
-Paperclipai onboard --yes --bind tailnet
+beecon onboard --yes --bind tailnet
 ```
 
-If you already have Paperclip configured, rerunning `onboard` keeps the existing config in place. Use `Paperclipai configure` to edit settings.
+If you already have Beecon configured, rerunning `onboard` keeps the existing config in place. Use `beecon configure` to edit settings.
 
 See [`doc/INSTALLING.md`](doc/INSTALLING.md) for pinned versions, canary and
 git-ref installs, updates, rollback, service management, and uninstalling.
@@ -368,8 +368,8 @@ git-ref installs, updates, rollback, service management, and uninstalling.
 Or manually:
 
 ```bash
-git clone https://github.com/Paperclipai/Paperclip.git
-cd Paperclip
+git clone https://github.com/beecon-ai/beecon.git
+cd beecon
 pnpm install
 pnpm dev
 ```
@@ -463,15 +463,15 @@ This is the short roadmap preview. See the full roadmap in [ROADMAP.md](ROADMAP.
 
 ## Community & Plugins
 
-Find Plugins and more at [awesome-Paperclip](https://github.com/gsxdsm/awesome-Paperclip)
+Find Plugins and more at [awesome-beecon](https://github.com/gsxdsm/awesome-beecon)
 
 ## Observability
 
-Paperclip ships with opt-in OpenTelemetry auto-instrumentation for the server (traces only). It activates when `OTEL_EXPORTER_OTLP_ENDPOINT` is set and supports `grpc`, `http/protobuf`, and `http/json` via the standard `OTEL_EXPORTER_OTLP_PROTOCOL` env var. The `@opentelemetry/*` packages are optional peer dependencies — install them only if you want tracing. See [doc/observability.md](doc/observability.md) for install commands and the full env-var reference.
+Beecon ships with opt-in OpenTelemetry auto-instrumentation for the server (traces only). It activates when `OTEL_EXPORTER_OTLP_ENDPOINT` is set and supports `grpc`, `http/protobuf`, and `http/json` via the standard `OTEL_EXPORTER_OTLP_PROTOCOL` env var. The `@opentelemetry/*` packages are optional peer dependencies — install them only if you want tracing. See [doc/observability.md](doc/observability.md) for install commands and the full env-var reference.
 
 ## Telemetry
 
-Paperclip collects anonymous usage telemetry to help us understand how the product is used and improve it. No personal information, issue content, prompts, file paths, or secrets are ever collected. Private repository references are hashed with a per-install salt before being sent.
+Beecon collects anonymous usage telemetry to help us understand how the product is used and improve it. No personal information, issue content, prompts, file paths, or secrets are ever collected. Private repository references are hashed with a per-install salt before being sent.
 
 Contributors changing emitted telemetry events should follow the [Telemetry Data Contract](packages/shared/src/telemetry/README.md).
 For proposed first-party events that are not in the generated contract yet, follow [Telemetry Workflow](doc/TELEMETRY_WORKFLOW.md).
@@ -483,7 +483,7 @@ Telemetry is **enabled by default** and can be disabled with any of the followin
 | Environment variable | `Paperclip_TELEMETRY_DISABLED=1`                        |
 | Standard convention  | `DO_NOT_TRACK=1`                                        |
 | CI environments      | Automatically disabled when `CI=true`                   |
-| Config file          | Set `telemetry.enabled: false` in your Paperclip config |
+| Config file          | Set `telemetry.enabled: false` in your Beecon config |
 
 ## Contributing
 
@@ -494,23 +494,23 @@ We welcome contributions. See the [contributing guide](CONTRIBUTING.md) for deta
 ## Community
 
 - [Discord](https://discord.gg/m4HZY7xNG3) — Join the community
-- [Twitter / X](https://x.com/Papercliping) — Follow updates and announcements
-- [GitHub Issues](https://github.com/Paperclipai/Paperclip/issues) — bugs and feature requests
-- [GitHub Discussions](https://github.com/Paperclipai/Paperclip/discussions) — ideas and RFC
+- [Twitter / X](https://x.com/beeconai) — Follow updates and announcements
+- [GitHub Issues](https://github.com/beecon-ai/beecon/issues) — bugs and feature requests
+- [GitHub Discussions](https://github.com/beecon-ai/beecon/discussions) — ideas and RFC
 
 <br/>
 
 ## License
 
-MIT &copy; 2026 [Paperclip Labs, Inc](https://Paperclip.ing)
+MIT &copy; 2026 [Beecon Labs, Inc](https://beecon.ing)
 
 ## Star History
 
-<a href="https://www.star-history.com/?repos=Paperclipai%2FPaperclip&type=date&legend=top-left">
+<a href="https://www.star-history.com/?repos=beecon-ai%2Fbeecon&type=date&legend=top-left">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=Paperclipai/Paperclip&type=date&theme=dark&legend=top-left&sealed_token=hFjuwFq41bQD5cevvXVv5cTru2swWRZujwJYKlHhtBh6n0H5-VvJZW2SAlcQKB8u4KxhyEB9JqFg1yccJ8WLv9wPBcoWpWcak4gx0MYTWu_pOs2jKOaDluH7KsLeTKt6DHGkHiN3LsqV9s--MTDQcC6Xl7zV51W0-YezQXo-pVPgoFDFAGf2CY5fiP5Q" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=Paperclipai/Paperclip&type=date&legend=top-left&sealed_token=hFjuwFq41bQD5cevvXVv5cTru2swWRZujwJYKlHhtBh6n0H5-VvJZW2SAlcQKB8u4KxhyEB9JqFg1yccJ8WLv9wPBcoWpWcak4gx0MYTWu_pOs2jKOaDluH7KsLeTKt6DHGkHiN3LsqV9s--MTDQcC6Xl7zV51W0-YezQXo-pVPgoFDFAGf2CY5fiP5Q" />
-    <img src="https://api.star-history.com/chart?repos=Paperclipai/Paperclip&type=date&legend=top-left&sealed_token=hFjuwFq41bQD5cevvXVv5cTru2swWRZujwJYKlHhtBh6n0H5-VvJZW2SAlcQKB8u4KxhyEB9JqFg1yccJ8WLv9wPBcoWpWcak4gx0MYTWu_pOs2jKOaDluH7KsLeTKt6DHGkHiN3LsqV9s--MTDQcC6Xl7zV51W0-YezQXo-pVPgoFDFAGf2CY5fiP5Q" alt="Star History Chart" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=beecon-ai/beecon&type=date&theme=dark&legend=top-left&sealed_token=hFjuwFq41bQD5cevvXVv5cTru2swWRZujwJYKlHhtBh6n0H5-VvJZW2SAlcQKB8u4KxhyEB9JqFg1yccJ8WLv9wPBcoWpWcak4gx0MYTWu_pOs2jKOaDluH7KsLeTKt6DHGkHiN3LsqV9s--MTDQcC6Xl7zV51W0-YezQXo-pVPgoFDFAGf2CY5fiP5Q" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=beecon-ai/beecon&type=date&legend=top-left&sealed_token=hFjuwFq41bQD5cevvXVv5cTru2swWRZujwJYKlHhtBh6n0H5-VvJZW2SAlcQKB8u4KxhyEB9JqFg1yccJ8WLv9wPBcoWpWcak4gx0MYTWu_pOs2jKOaDluH7KsLeTKt6DHGkHiN3LsqV9s--MTDQcC6Xl7zV51W0-YezQXo-pVPgoFDFAGf2CY5fiP5Q" />
+    <img src="https://api.star-history.com/chart?repos=beecon-ai/beecon&type=date&legend=top-left&sealed_token=hFjuwFq41bQD5cevvXVv5cTru2swWRZujwJYKlHhtBh6n0H5-VvJZW2SAlcQKB8u4KxhyEB9JqFg1yccJ8WLv9wPBcoWpWcak4gx0MYTWu_pOs2jKOaDluH7KsLeTKt6DHGkHiN3LsqV9s--MTDQcC6Xl7zV51W0-YezQXo-pVPgoFDFAGf2CY5fiP5Q" alt="Star History Chart" />
   </picture>
 </a>
 

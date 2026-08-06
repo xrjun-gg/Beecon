@@ -126,7 +126,7 @@ export const BreadcrumbTrail: Story = {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="#">Paperclip</BreadcrumbLink>
+            <BreadcrumbLink href="#">Beecon</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>

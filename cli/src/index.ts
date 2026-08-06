@@ -49,18 +49,18 @@ import { registerServiceCommands } from "./commands/service.js";
 
 const program = new Command();
 const DATA_DIR_OPTION_HELP =
-  "Paperclip data directory root (isolates state from ~/.Paperclip)";
+  "Beecon data directory root (isolates state from ~/.Paperclip)";
 
 program.enablePositionalOptions();
 
 program
-  .name("Paperclipai")
-  .description("Paperclip CLI — setup, diagnose, and configure your instance")
+  .name("beecon")
+  .description("Beecon CLI — setup, diagnose, and configure your instance")
   .version(cliVersion);
 
 program
   .command("install")
-  .description("Install Paperclip into a managed per-user CLI store")
+  .description("Install Beecon into a managed per-user CLI store")
   .option("--canary", "Install the npm canary channel")
   .option("--version <version>", "Install an exact published npm version")
   .option("--ref <ref>", "Install a GitHub branch, tag, or commit SHA")
@@ -76,7 +76,7 @@ program
 program
   .command("update")
   .alias("upgrade")
-  .description("Check, update, or roll back the Paperclip CLI")
+  .description("Check, update, or roll back the Beecon CLI")
   .option("--latest", "Switch to the latest stable channel")
   .option("--canary", "Switch to the canary channel")
   .option("--version <version>", "Install an exact published version")
@@ -113,7 +113,7 @@ program
 
 program
   .command("doctor")
-  .description("Run diagnostic checks on your Paperclip setup")
+  .description("Run diagnostic checks on your Beecon setup")
   .option("-c, --config <path>", "Path to config file")
   .option("-d, --data-dir <path>", DATA_DIR_OPTION_HELP)
   .option("--repair", "Attempt to repair issues automatically")
@@ -145,7 +145,7 @@ program
   .option("-d, --data-dir <path>", DATA_DIR_OPTION_HELP)
   .option("--dir <path>", "Backup output directory (overrides config)")
   .option("--retention-days <days>", "Retention window used for pruning", (value) => Number(value))
-  .option("--filename-prefix <prefix>", "Backup filename prefix", "Paperclip")
+  .option("--filename-prefix <prefix>", "Backup filename prefix", "beecon")
   .option("--json", "Print backup metadata as JSON")
   .action(async (opts) => {
     await dbBackupCommand(opts);
@@ -161,7 +161,7 @@ program
 
 const run = program
   .command("run")
-  .description("Bootstrap local setup (onboard + doctor) and run Paperclip")
+  .description("Bootstrap local setup (onboard + doctor) and run Beecon")
   .option("-c, --config <path>", "Path to config file")
   .option("-d, --data-dir <path>", DATA_DIR_OPTION_HELP)
   .option("-i, --instance <id>", "Local instance id (default: default)")
@@ -184,7 +184,7 @@ heartbeat
   .option("-d, --data-dir <path>", DATA_DIR_OPTION_HELP)
   .option("--context <path>", "Path to CLI context file")
   .option("--profile <name>", "CLI context profile name")
-  .option("--api-base <url>", "Base URL for the Paperclip server API")
+  .option("--api-base <url>", "Base URL for the Beecon server API")
   .option("--api-key <token>", "Bearer token for agent-authenticated calls")
   .option(
     "--source <source>",

@@ -1,19 +1,19 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Paperclipai/Paperclip/master/doc/assets/banner.jpg" alt="Beecon is the app people use to manage AI agents for work." width="720" />
+  <img src="https://raw.githubusercontent.com/beecon-ai/beecon/master/doc/assets/banner.jpg" alt="Beecon is the app people use to manage AI agents for work." width="720" />
 </p>
 
 <p align="center">
   <a href="#quickstart"><strong>Quickstart</strong></a> &middot;
-  <a href="https://docs.Paperclip.ing"><strong>Docs</strong></a> &middot;
-  <a href="https://github.com/Paperclipai/Paperclip"><strong>GitHub</strong></a> &middot;
+  <a href="https://docs.beecon.ing"><strong>Docs</strong></a> &middot;
+  <a href="https://github.com/beecon-ai/beecon"><strong>GitHub</strong></a> &middot;
   <a href="https://discord.gg/m4HZY7xNG3"><strong>Discord</strong></a> &middot;
-  <a href="https://x.com/Papercliping"><strong>Twitter</strong></a> &middot;
-  <a href="https://Paperclip.ing"><strong>Website</strong></a>
+  <a href="https://x.com/beeconai"><strong>Twitter</strong></a> &middot;
+  <a href="https://beecon.ing"><strong>Website</strong></a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/Paperclipai/Paperclip/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT License" /></a>
-  <a href="https://github.com/Paperclipai/Paperclip/stargazers"><img src="https://img.shields.io/github/stars/Paperclipai/Paperclip?style=flat" alt="Stars" /></a>
+  <a href="https://github.com/beecon-ai/beecon/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT License" /></a>
+  <a href="https://github.com/beecon-ai/beecon/stargazers"><img src="https://img.shields.io/github/stars/beecon-ai/beecon?style=flat" alt="Stars" /></a>
   <a href="https://discord.gg/m4HZY7xNG3"><img src="https://img.shields.io/discord/000000000?label=discord" alt="Discord" /></a>
 </p>
 
@@ -49,12 +49,12 @@ It looks like a task manager. Under the hood: org charts, budgets, governance, g
 <table>
   <tr>
     <td align="center"><strong>Works<br/>with</strong></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/Paperclipai/Paperclip/master/doc/assets/logos/openclaw.svg" width="32" alt="OpenClaw" /><br/><sub>OpenClaw</sub></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/Paperclipai/Paperclip/master/doc/assets/logos/claude.svg" width="32" alt="Claude" /><br/><sub>Claude Code</sub></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/Paperclipai/Paperclip/master/doc/assets/logos/codex.svg" width="32" alt="Codex" /><br/><sub>Codex</sub></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/Paperclipai/Paperclip/master/doc/assets/logos/cursor.svg" width="32" alt="Cursor" /><br/><sub>Cursor</sub></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/Paperclipai/Paperclip/master/doc/assets/logos/bash.svg" width="32" alt="Bash" /><br/><sub>Bash</sub></td>
-    <td align="center"><img src="https://raw.githubusercontent.com/Paperclipai/Paperclip/master/doc/assets/logos/http.svg" width="32" alt="HTTP" /><br/><sub>HTTP</sub></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/beecon-ai/beecon/master/doc/assets/logos/openclaw.svg" width="32" alt="OpenClaw" /><br/><sub>OpenClaw</sub></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/beecon-ai/beecon/master/doc/assets/logos/claude.svg" width="32" alt="Claude" /><br/><sub>Claude Code</sub></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/beecon-ai/beecon/master/doc/assets/logos/codex.svg" width="32" alt="Codex" /><br/><sub>Codex</sub></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/beecon-ai/beecon/master/doc/assets/logos/cursor.svg" width="32" alt="Cursor" /><br/><sub>Cursor</sub></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/beecon-ai/beecon/master/doc/assets/logos/bash.svg" width="32" alt="Bash" /><br/><sub>Bash</sub></td>
+    <td align="center"><img src="https://raw.githubusercontent.com/beecon-ai/beecon/master/doc/assets/logos/http.svg" width="32" alt="HTTP" /><br/><sub>HTTP</sub></td>
   </tr>
 </table>
 
@@ -156,11 +156,11 @@ Beecon handles the hard orchestration details correctly.
 
 ## What's Under the Hood
 
-Paperclip is a full control plane, not a wrapper. Before you build any of this yourself, know that it already exists:
+Beecon is a full control plane, not a wrapper. Before you build any of this yourself, know that it already exists:
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│                       Paperclip SERVER                       │
+│                       Beecon SERVER                       │
 │                                                              │
 │  ┌───────────┐  ┌───────────┐  ┌───────────┐  ┌───────────┐  │
 │  │Identity & │  │  Work &   │  │ Heartbeat │  │Governance │  │
@@ -238,7 +238,7 @@ Paperclip is a full control plane, not a wrapper. Before you build any of this y
 <tr>
 <td>
 
-**Plugins** — Instance-wide plugin system with out-of-process workers, capability-gated host services, job scheduling, tool exposure, and UI contributions. Extend Paperclip without forking it.
+**Plugins** — Instance-wide plugin system with out-of-process workers, capability-gated host services, job scheduling, tool exposure, and UI contributions. Extend Beecon without forking it.
 
 </td>
 <td>
@@ -281,24 +281,24 @@ Paperclip is a full control plane, not a wrapper. Before you build any of this y
 Open source. Self-hosted. No Beecon account required.
 
 ```bash
-npx Paperclipai onboard --yes
+npx beecon onboard --yes
 ```
 
 That quickstart path now defaults to trusted local loopback mode for the fastest first run. To start in authenticated/private mode instead, choose a bind preset explicitly:
 
 ```bash
-npx Paperclipai onboard --yes --bind lan
+npx beecon onboard --yes --bind lan
 # or:
-npx Paperclipai onboard --yes --bind tailnet
+npx beecon onboard --yes --bind tailnet
 ```
 
-If you already have Beecon configured, rerunning `onboard` keeps the existing config in place. Use `Paperclipai configure` to edit settings.
+If you already have Beecon configured, rerunning `onboard` keeps the existing config in place. Use `beecon configure` to edit settings.
 
 Or manually:
 
 ```bash
-git clone https://github.com/Paperclipai/Paperclip.git
-cd Paperclip
+git clone https://github.com/beecon-ai/beecon.git
+cd beecon
 pnpm install
 pnpm dev
 ```
@@ -337,12 +337,12 @@ By default, agents run on scheduled heartbeats and event-based triggers (task as
 Export a company to a portable package and import it into any other instance — local or cloud — from a local path or GitHub:
 
 ```bash
-Paperclipai company export <company-id> --out ./my-export
-Paperclipai company import ./my-export --dry-run
-Paperclipai company import org/repo --target new
+beecon company export <company-id> --out ./my-export
+beecon company import ./my-export --dry-run
+beecon company import org/repo --target new
 ```
 
-The board UI has matching Export and Import pages in company settings: the Export page shows a fidelity panel listing what the bundle will not carry, and the Import page starts imported agents and routines paused by default, with a post-import activation step. See the [Importing & Exporting guide](https://github.com/Paperclipai/Paperclip/blob/master/docs/guides/board-operator/importing-and-exporting.md) for details.
+The board UI has matching Export and Import pages in company settings: the Export page shows a fidelity panel listing what the bundle will not carry, and the Import page starts imported agents and routines paused by default, with a post-import activation step. See the [Importing & Exporting guide](https://github.com/beecon-ai/beecon/blob/master/docs/guides/board-operator/importing-and-exporting.md) for details.
 
 ## Development
 
@@ -361,7 +361,7 @@ pnpm db:migrate       # Apply migrations
 
 `pnpm test` does not run Playwright. Browser suites stay separate and are typically run only when working on those flows or in CI.
 
-See [doc/DEVELOPING.md](https://github.com/Paperclipai/Paperclip/blob/master/doc/DEVELOPING.md) for the full development guide.
+See [doc/DEVELOPING.md](https://github.com/beecon-ai/beecon/blob/master/doc/DEVELOPING.md) for the full development guide.
 
 <br/>
 
@@ -389,13 +389,13 @@ See [doc/DEVELOPING.md](https://github.com/Paperclipai/Paperclip/blob/master/doc
 - ⚪ Cloud deployments
 - ⚪ Desktop App
 
-This is the short roadmap preview. See the full roadmap in [ROADMAP.md](https://github.com/Paperclipai/Paperclip/blob/master/ROADMAP.md).
+This is the short roadmap preview. See the full roadmap in [ROADMAP.md](https://github.com/beecon-ai/beecon/blob/master/ROADMAP.md).
 
 <br/>
 
 ## Community & Plugins
 
-Find Plugins and more at [awesome-Paperclip](https://github.com/gsxdsm/awesome-Paperclip)
+Find Plugins and more at [awesome-beecon](https://github.com/gsxdsm/awesome-beecon)
 
 ## Telemetry
 
@@ -412,26 +412,26 @@ Telemetry is **enabled by default** and can be disabled with any of the followin
 
 ## Contributing
 
-We welcome contributions. See the [contributing guide](https://github.com/Paperclipai/Paperclip/blob/master/CONTRIBUTING.md) for details.
+We welcome contributions. See the [contributing guide](https://github.com/beecon-ai/beecon/blob/master/CONTRIBUTING.md) for details.
 
 <br/>
 
 ## Community
 
 - [Discord](https://discord.gg/m4HZY7xNG3) — Join the community
-- [Twitter / X](https://x.com/Papercliping) — Follow updates and announcements
-- [GitHub Issues](https://github.com/Paperclipai/Paperclip/issues) — bugs and feature requests
-- [GitHub Discussions](https://github.com/Paperclipai/Paperclip/discussions) — ideas and RFC
+- [Twitter / X](https://x.com/beeconai) — Follow updates and announcements
+- [GitHub Issues](https://github.com/beecon-ai/beecon/issues) — bugs and feature requests
+- [GitHub Discussions](https://github.com/beecon-ai/beecon/discussions) — ideas and RFC
 
 <br/>
 
 ## License
 
-MIT &copy; 2026 [Beecon Labs, Inc](https://Paperclip.ing)
+MIT &copy; 2026 [Beecon Labs, Inc](https://beecon.ing)
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/image?repos=Paperclipai/Paperclip&type=date&legend=top-left)](https://www.star-history.com/?repos=Paperclipai%2FPaperclip&type=date&legend=top-left)
+[![Star History Chart](https://api.star-history.com/image?repos=beecon-ai/beecon&type=date&legend=top-left)](https://www.star-history.com/?repos=beecon-ai%2Fbeecon&type=date&legend=top-left)
 
 <br/>
 

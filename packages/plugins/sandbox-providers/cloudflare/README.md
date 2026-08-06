@@ -2,11 +2,11 @@
 
 Published Cloudflare sandbox provider plugin for Paperclip.
 
-This package lives in the Paperclip monorepo, but it is intentionally excluded from the root `pnpm` workspace and shaped to publish and install like a standalone npm package. Operators can install it from the Plugins page by package name, and the host will fetch its dependencies at install time without adding lockfile churn to the Paperclip repo.
+This package lives in the Beecon monorepo, but it is intentionally excluded from the root `pnpm` workspace and shaped to publish and install like a standalone npm package. Operators can install it from the Plugins page by package name, and the host will fetch its dependencies at install time without adding lockfile churn to the Beecon repo.
 
 ## Install
 
-From a Paperclip instance, install:
+From a Beecon instance, install:
 
 ```text
 @Paperclipai/plugin-cloudflare-sandbox
@@ -29,11 +29,11 @@ Important validation rules:
 - non-local `bridgeBaseUrl` values must be `https://`
 - `sessionId` is required when `sessionStrategy` is `named`
 
-Pasted auth tokens are stored by Paperclip as company secrets because the manifest marks `bridgeAuthToken` as a `secret-ref` field.
+Pasted auth tokens are stored by Beecon as company secrets because the manifest marks `bridgeAuthToken` as a `secret-ref` field.
 
 ## Bridge template
 
-The package includes an operator-facing Cloudflare Worker scaffold under [bridge-template](./bridge-template). That template uses `@cloudflare/sandbox`, a `Sandbox` Durable Object binding, and a small JSON HTTP surface under `/api/Paperclip-sandbox/v1`.
+The package includes an operator-facing Cloudflare Worker scaffold under [bridge-template](./bridge-template). That template uses `@cloudflare/sandbox`, a `Sandbox` Durable Object binding, and a small JSON HTTP surface under `/api/Beecon-sandbox/v1`.
 
 ## Local development
 

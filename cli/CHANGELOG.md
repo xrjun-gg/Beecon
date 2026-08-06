@@ -1,4 +1,4 @@
-# Paperclipai
+# beecon
 
 ## 0.3.1
 

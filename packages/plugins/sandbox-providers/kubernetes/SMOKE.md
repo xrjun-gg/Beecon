@@ -1,16 +1,16 @@
 # Manual smoke test — `@Paperclipai/plugin-kubernetes`
 
 Manual sanity check that the plugin works end-to-end against a real
-Paperclip-server instance and a real Kubernetes cluster (kind for local
+Beecon-server instance and a real Kubernetes cluster (kind for local
 dev). Future work may automate this in CI.
 
 ## Prerequisites
 
 - A running kind cluster:
   ```bash
-  kind create cluster --name Paperclip
+  kind create cluster --name Beecon
   ```
-- `kubectl --context kind-Paperclip get nodes` returns a node in `Ready` state.
+- `kubectl --context kind-Beecon get nodes` returns a node in `Ready` state.
 
 ## Steps
 
@@ -24,13 +24,13 @@ pnpm build
 
 Expected: `dist/` populated with compiled `.js` and `.d.ts` files. No errors.
 
-### 2. Start Paperclip-server in dev mode
+### 2. Start Beecon-server in dev mode
 
 In a separate terminal:
 
 ```bash
-cd /path/to/Paperclip
-export Paperclip_HOME=/tmp/Paperclip-smoke
+cd /path/to/Beecon
+export Paperclip_HOME=/tmp/Beecon-smoke
 export Paperclip_INSTANCE_ID=smoke
 export Paperclip_DEPLOYMENT_MODE=local_trusted
 pnpm --filter @Paperclipai/server dev
@@ -42,7 +42,7 @@ Wait for `Server listening on 127.0.0.1:3100`.
 
 ```bash
 pnpm Paperclipai plugin install \
-  --local /path/to/Paperclip/packages/plugins/sandbox-providers/kubernetes \
+  --local /path/to/Beecon/packages/plugins/sandbox-providers/kubernetes \
   --api-base http://127.0.0.1:3100
 ```
 
@@ -83,7 +83,7 @@ curl -s -X POST -d '{}' -H "Content-Type: application/json" \
 ```
 
 Expected: `{"ok": true, ...}` with a summary mentioning the tenant namespace
-(`Paperclip-smoke`). On first probe the namespace may not yet exist —
+(`Beecon-smoke`). On first probe the namespace may not yet exist —
 the plugin treats a 404 on `listNamespacedPod` as a successful reachability
 check.
 
@@ -92,7 +92,7 @@ check.
 Use the UI or the API to dispatch a run against the `k8s-sandbox` environment.
 The plugin's `onEnvironmentAcquireLease` will:
 
-1. `ensureTenant` — provision the `Paperclip-smoke` namespace, SA, Role,
+1. `ensureTenant` — provision the `Beecon-smoke` namespace, SA, Role,
    RoleBinding, ResourceQuota, LimitRange, NetworkPolicies
 2. `buildJobManifest` — render the security-hardened Job manifest
 3. `createJob` — submit to `batch/v1`
@@ -101,26 +101,26 @@ The plugin's `onEnvironmentAcquireLease` will:
 ### 7. Verify the tenant resources
 
 ```bash
-kubectl --context kind-Paperclip get namespace Paperclip-smoke
-kubectl --context kind-Paperclip get all,networkpolicy,resourcequota,limitrange,sa,role,rolebinding -n Paperclip-smoke
+kubectl --context kind-Beecon get namespace Beecon-smoke
+kubectl --context kind-Beecon get all,networkpolicy,resourcequota,limitrange,sa,role,rolebinding -n Beecon-smoke
 ```
 
 Expected:
 
-- Namespace `Paperclip-smoke` exists with PSS labels
+- Namespace `Beecon-smoke` exists with PSS labels
   (`pod-security.kubernetes.io/enforce=restricted`)
-- ServiceAccount `Paperclip-tenant-sa`
-- Role `Paperclip-tenant-role`, RoleBinding `Paperclip-tenant-rb`
-- ResourceQuota `Paperclip-quota`, LimitRange `Paperclip-limits`
-- NetworkPolicies `Paperclip-deny-all` + `Paperclip-egress-allow`
+- ServiceAccount `Beecon-tenant-sa`
+- Role `Beecon-tenant-role`, RoleBinding `Beecon-tenant-rb`
+- ResourceQuota `Beecon-quota`, LimitRange `Beecon-limits`
+- NetworkPolicies `Beecon-deny-all` + `Beecon-egress-allow`
 - Job `pc-{ulid}` and its child Pod
 - Secret `pc-{ulid}-env` with `ownerReferences` pointing at the Job
 
 ### 8. Tear down
 
 ```bash
-kubectl --context kind-Paperclip delete namespace Paperclip-smoke
-kill %1  # Paperclip-server
+kubectl --context kind-Beecon delete namespace Beecon-smoke
+kill %1  # Beecon-server
 ```
 
 ### 9. Document the result
@@ -130,6 +130,6 @@ record:
 
 - Date + git SHA
 - `kubectl version` server version
-- Output of `kubectl get all -n Paperclip-smoke` after step 6
+- Output of `kubectl get all -n Beecon-smoke` after step 6
 - Probe response from step 5
 - Time-to-acquire-lease (target: <30s on kind for a cold tenant)

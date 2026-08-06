@@ -86,7 +86,7 @@ process supervision to you (just `Ctrl+C` the server when you are done).
 4. If you launched the server with `KV_DEMO_TOKEN`, paste the token in the
    **App key** field. The wizard stores it as an `Authorization: Bearer …`
    header secret.
-5. Pick the profile defaults (read/write/destructive) and finish. Paperclip
+5. Pick the profile defaults (read/write/destructive) and finish. Beecon
    imports the four tools and quarantines `kv_delete`.
 
 The wizard hits this API under the hood:
@@ -119,23 +119,23 @@ If a token is set, add the `credentialValues` block:
 - **`remote_http` (recommended for this demo)** — required if you want the
   Values UI to reflect what the agent just did. The KV demo intentionally
   holds state in one process and exposes both the MCP endpoint and the UI
-  from that process. Paperclip's `remote_http` gateway forwards every call to
+  from that process. Beecon's `remote_http` gateway forwards every call to
   the same loopback URL, so the UI always sees the same store the tools
   mutated.
 - **`local_stdio` (not used here)** — runs MCP servers as supervised child
-  processes inside Paperclip's runtime slots. Reserved for *trusted local
+  processes inside Beecon's runtime slots. Reserved for *trusted local
   deployments* (developer laptop, `local_trusted` or
   `authenticated/private` with `Paperclip_TRUSTED_MCP_RUNTIME_HOST` set on a
   single trusted worker). Each runtime slot has its own process, which would
   give each slot its own in-memory store — you would lose the shared-state
   property that makes this demo work. Use the approved stdio templates that
-  ship in the Paperclip build when you need stdio; do not try to shoehorn
+  ship in the Beecon build when you need stdio; do not try to shoehorn
   this server into a local-stdio template.
 
 For the full transport policy across deployment modes, see
 [MCP-ACCESS-GOVERNANCE.md → Local trusted deployment](../../doc/MCP-ACCESS-GOVERNANCE.md#local-trusted-deployment).
 
-## What you should see in Paperclip
+## What you should see in Beecon
 
 After the wizard finishes, expect:
 
@@ -158,9 +158,9 @@ rows above.
 
 ## What lives where
 
-| Concern | Stored in this package | Stored in Paperclip |
+| Concern | Stored in this package | Stored in Beecon |
 | --- | --- | --- |
-| Key/value entries (`kv_*` data) | In-memory `Map`, lost on restart. | Not stored. Paperclip never sees the values directly; the gateway only sees the MCP request/response envelope and the redacted-by-policy view the audit log keeps. |
+| Key/value entries (`kv_*` data) | In-memory `Map`, lost on restart. | Not stored. Beecon never sees the values directly; the gateway only sees the MCP request/response envelope and the redacted-by-policy view the audit log keeps. |
 | Connection record (URL, token, transport) | Not stored. | Persisted in `tool_connections`. The optional token becomes a secret. |
 | Profile / policy / binding decisions | Not stored. | Persisted under `tool_profiles`, `tool_policies`, and `tool_profile_bindings`. |
 | Approval action requests | Not stored. | Persisted under `tool_action_requests`, linked to issue-thread interactions. |
@@ -168,7 +168,7 @@ rows above.
 
 ## Cleanup and reset
 
-Resetting the demo state usually means resetting this process; Paperclip's
+Resetting the demo state usually means resetting this process; Beecon's
 records stay intact unless you also archive the connection.
 
 - **Empty the KV store** — `Ctrl+C` (or `kill`) the server and start it
@@ -182,7 +182,7 @@ records stay intact unless you also archive the connection.
   lsof -nP -iTCP:8848 -sTCP:LISTEN
   kill <pid>
   ```
-- **Quiesce the Paperclip side** — disable the connection so the gateway
+- **Quiesce the Beecon side** — disable the connection so the gateway
   stops trying to reach the now-stopped server:
 
   ```sh

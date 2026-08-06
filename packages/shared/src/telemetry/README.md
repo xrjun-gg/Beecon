@@ -1,11 +1,11 @@
 # Telemetry Data Contract
 
-This document explains how contributors should use Paperclip's public telemetry
+This document explains how contributors should use Beecon's public telemetry
 contract. It intentionally does not list individual events or dimensions.
 
 The canonical source for first-party event names, dimensions, optionality,
 allowed primitive value types, and enum descriptions is
-`packages/shared/src/telemetry/generated/Paperclip-telemetry.ts`.
+`packages/shared/src/telemetry/generated/Beecon-telemetry.ts`.
 
 Shared enum constants live in `packages/shared/src/constants.ts`. Use those
 constants when code needs a reusable domain, but treat the generated telemetry
@@ -17,10 +17,10 @@ Use these files when reviewing or changing telemetry code:
 
 | Contract item | Public source |
 | --- | --- |
-| First-party event names | `PaperclipEventName` in `generated/Paperclip-telemetry.ts` |
-| Per-event dimensions and optionality | `EventDimensionsMap` in `generated/Paperclip-telemetry.ts` |
-| Enum descriptions for telemetry dimensions | `Paperclip_ENUM_DESCRIPTIONS` in `generated/Paperclip-telemetry.ts` |
-| Schema version and event envelope helpers | `SCHEMA_VERSION`, `makeEvent()`, and `makeBatch()` in `generated/Paperclip-telemetry.ts` |
+| First-party event names | `PaperclipEventName` in `generated/Beecon-telemetry.ts` |
+| Per-event dimensions and optionality | `EventDimensionsMap` in `generated/Beecon-telemetry.ts` |
+| Enum descriptions for telemetry dimensions | `Paperclip_ENUM_DESCRIPTIONS` in `generated/Beecon-telemetry.ts` |
+| Schema version and event envelope helpers | `SCHEMA_VERSION`, `makeEvent()`, and `makeBatch()` in `generated/Beecon-telemetry.ts` |
 | Runtime-safe event names and dimensions | `TelemetryEventName` and `TelemetryEventDimensions` in `types.ts` |
 | Allowed primitive dimension values | `TelemetryDimensionValue` in `types.ts` |
 | Shared reusable enum domains | Named exports in `constants.ts` |
@@ -33,7 +33,7 @@ will drift as the generated contract changes.
 
 ## Emission Boundary
 
-Paperclip telemetry uses named events with explicit dimension fields. Treat
+Beecon telemetry uses named events with explicit dimension fields. Treat
 open-ended string dimensions as public contract values, not as a place for user
 content or private operational data. Do not send PII, secrets, credentials,
 private paths, prompts, model output, or other sensitive values through
@@ -57,13 +57,13 @@ contract. Do not emit private source material in telemetry dimensions.
 
 ## Sandbox Startup Trace Spans
 
-Paperclip opens OpenTelemetry spans on the sandbox start path. These spans are a
+Beecon opens OpenTelemetry spans on the sandbox start path. These spans are a
 separate telemetry surface from the first-party events above. The generated
 telemetry contract does not cover them, so this section is their canonical
 contract.
 
-The spans are opt-in. Paperclip exports them only when an OTLP endpoint is
-configured. With no endpoint the whole span path is a no-op. Paperclip opens the
+The spans are opt-in. Beecon exports them only when an OTLP endpoint is
+configured. With no endpoint the whole span path is a no-op. Beecon opens the
 spans only for a run that targets a remote sandbox. A local run and an SSH run
 stay out of these spans.
 
@@ -78,7 +78,7 @@ value:
 - An image id, a sandbox id, and a lease id ride only as a non-reversible short
   hash.
 
-Each numeric attribute is finite. Paperclip omits an attribute when its value is
+Each numeric attribute is finite. Beecon omits an attribute when its value is
 absent, never a misleading `0`.
 
 ### Spans
@@ -90,7 +90,7 @@ absent, never a misleading `0`.
 | `codex-home.seed` | Managed-home seed step. | `sandbox.startup` |
 | `skills.reconcile` | Skills reconcile step. | `sandbox.startup` |
 | `stage.sync` | Workspace stage-sync step. | `sandbox.startup` |
-| `bridge.Paperclip` | Paperclip bridge start step. | `sandbox.startup` |
+| `bridge.Beecon` | Beecon bridge start step. | `sandbox.startup` |
 | `bridge.process-session` | Process-session bridge start step. | `sandbox.startup` |
 | `acp.handshake` | ACP session handshake step. | `sandbox.startup` |
 | `sandbox.exec` | One host-to-sandbox execution. | the active step span |
@@ -146,7 +146,7 @@ per-execution `sandbox.exec` child spans carry that detail.
 
 ### `sandbox.exec` span attributes
 
-The `sandbox.exec` span uses this closed attribute allowlist. Paperclip omits a
+The `sandbox.exec` span uses this closed attribute allowlist. Beecon omits a
 numeric attribute when the provider does not report the value.
 
 | Attribute | Type | Optional | Meaning |
@@ -163,7 +163,7 @@ numeric attribute when the provider does not report the value.
 | `Paperclip.sandbox.startup.outcome` | string | no | The execution outcome (`ok` or `failed`). |
 
 The plugin decides the cache hit at the sandbox-handle lookup. The span no
-longer infers a cache hit from `wait_before_ms == 0`. Paperclip omits the
+longer infers a cache hit from `wait_before_ms == 0`. Beecon omits the
 `cache_hit` attribute when the provider does not report the value.
 
 To add a span attribute, extend the `SANDBOX_STARTUP_SPAN_ATTRS` allowlist in
@@ -228,7 +228,7 @@ no-op.
 
 ## Sandbox Startup Run-Log Event
 
-Paperclip writes one `run.startup.step` event to the run log for each bring-up
+Beecon writes one `run.startup.step` event to the run log for each bring-up
 step. This event is a run-log record, not a first-party telemetry event. The
 generated telemetry contract does not cover it, so this section is its canonical
 contract.
@@ -294,7 +294,7 @@ generated schema registers the event name.
 
 For stable event work:
 
-1. Start from `generated/Paperclip-telemetry.ts`. The generated types are what
+1. Start from `generated/Beecon-telemetry.ts`. The generated types are what
    reviewers use to verify event names, dimensions, optionality, value types,
    enum descriptions, and schema version.
 2. Choose stable event and dimension names. Do not include user content, local

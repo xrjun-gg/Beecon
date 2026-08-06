@@ -66,7 +66,7 @@ docker run --rm ghcr.io/Paperclipai/agent-runtime-claude:dev claude-code --versi
 
 - `USER`: 1000:1000 (Beecon, non-root)
 
-## Agent Container (Paperclip-agent-shim)
+## Agent Container (Beecon-agent-shim)
 
 The main agent process runs as the shim (PID 1 under tini). The shim:
 

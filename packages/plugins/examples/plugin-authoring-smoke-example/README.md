@@ -1,6 +1,6 @@
 # Plugin Authoring Smoke Example
 
-A Paperclip plugin
+A Beecon plugin
 
 ## Development
 
@@ -11,10 +11,10 @@ pnpm dev:ui         # local dev server with hot-reload events
 pnpm test
 ```
 
-## Install Into Paperclip
+## Install Into Beecon
 
 ```bash
-pnpm paperclipai plugin install ./
+pnpm beecon plugin install ./
 ```
 
 ## Build Options

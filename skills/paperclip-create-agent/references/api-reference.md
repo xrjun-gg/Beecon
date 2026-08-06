@@ -1,4 +1,4 @@
-# Paperclip Create Agent API Reference
+# Beecon Create Agent API Reference
 
 ## Core Endpoints
 

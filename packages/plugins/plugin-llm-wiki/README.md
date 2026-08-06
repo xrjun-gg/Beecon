@@ -137,12 +137,12 @@ restart the Beecon dev server so the host imports the fresh bundle.
 ```
 
 Use the settings page or `bootstrap-root` action to configure the folder and
-write the starter files. The plugin uses Paperclip's local folder API for path
+write the starter files. The plugin uses Beecon's local folder API for path
 containment, symlink checks, read/write validation, and atomic writes.
 
 Bootstrap preserves existing files rather than overwriting operator edits. The
 default first-install skeleton is copied from the vanilla LLM Wiki layout, with
-`CLAUDE.md` renamed to `AGENTS.md` and Paperclip project overviews, standups,
+`CLAUDE.md` renamed to `AGENTS.md` and Beecon project overviews, standups,
 decisions, and history kept together under `wiki/projects/<slug>/`.
 
 ## Managed Agent Instructions

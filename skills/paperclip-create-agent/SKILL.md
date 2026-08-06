@@ -1,12 +1,12 @@
 ---
-name: Paperclip-create-agent
+name: Beecon-create-agent
 description: >
-  Create new agents in Paperclip with governance-aware hiring. Use when you need
+  Create new agents in Beecon with governance-aware hiring. Use when you need
   to inspect adapter configuration options, compare existing agent configs,
   draft a new agent prompt/config, and submit a hire request.
 ---
 
-# Paperclip Create Agent Skill
+# Beecon Create Agent Skill
 
 Use this skill when you are asked to hire/create an agent.
 
@@ -28,7 +28,7 @@ curl -sS "$Paperclip_API_URL/api/agents/me" \
   -H "Authorization: Bearer $Paperclip_API_KEY"
 ```
 
-### 2. Discover adapter configuration for this Paperclip instance
+### 2. Discover adapter configuration for this Beecon instance
 
 ```sh
 curl -sS "$Paperclip_API_URL/llms/agent-configuration.txt" \
@@ -57,10 +57,10 @@ This is the single most important decision for hire quality. Pick exactly one pa
 - **Generic fallback** — no template is close. Use the baseline role guide to construct a new `AGENTS.md` from scratch, filling in each recommended section for the specific role.
 
 Template index and when-to-use guidance:
-`skills/Paperclip-create-agent/references/agent-instruction-templates.md`
+`skills/Beecon-create-agent/references/agent-instruction-templates.md`
 
 Generic fallback for no-template hires:
-`skills/Paperclip-create-agent/references/baseline-role-guide.md`
+`skills/Beecon-create-agent/references/baseline-role-guide.md`
 
 State which path you took in your hire-request comment so the board can see the reasoning.
 
@@ -84,14 +84,14 @@ curl -sS "$Paperclip_API_URL/llms/agent-icons.txt" \
 - if the role may handle private advisories or sensitive disclosures, confirm a confidential workflow exists first (dedicated skill or documented manual process)
 - capabilities
 - managed instructions bundle (`AGENTS.md`) for adapters that support it; avoid durable `promptTemplate` config
-- for coding or execution agents, include the Paperclip execution contract: start actionable work in the same heartbeat; do not stop at a plan unless planning was requested; leave durable progress with a clear next action; use child issues for long or parallel delegated work instead of polling; mark blocked work with owner/action; respect budget, pause/cancel, approval gates, and company boundaries
+- for coding or execution agents, include the Beecon execution contract: start actionable work in the same heartbeat; do not stop at a plan unless planning was requested; leave durable progress with a clear next action; use child issues for long or parallel delegated work instead of polling; mark blocked work with owner/action; respect budget, pause/cancel, approval gates, and company boundaries
 - instruction text such as `AGENTS.md` built from step 4; for local managed-bundle adapters, send this as top-level `instructionsBundle.files["AGENTS.md"]`. Do not set `adapterConfig.promptTemplate` or `bootstrapPromptTemplate` for new agents.
 - source issue linkage (`sourceIssueId` or `sourceIssueIds`) when this hire came from an issue
 
 ### 7. Review the draft against the quality checklist
 
 Before submitting, walk the draft-review checklist end-to-end and fix any item that does not pass:
-`skills/Paperclip-create-agent/references/draft-review-checklist.md`
+`skills/Beecon-create-agent/references/draft-review-checklist.md`
 
 ### 8. Submit hire request
 
@@ -156,8 +156,8 @@ For each linked issue, either:
 
 ## References
 
-- Template index and how to apply a template: `skills/Paperclip-create-agent/references/agent-instruction-templates.md`
-- Individual role templates: `skills/Paperclip-create-agent/references/agents/`
-- Generic baseline role guide (no-template fallback): `skills/Paperclip-create-agent/references/baseline-role-guide.md`
-- Pre-submit draft-review checklist: `skills/Paperclip-create-agent/references/draft-review-checklist.md`
-- Endpoint payload shapes and full examples: `skills/Paperclip-create-agent/references/api-reference.md`
+- Template index and how to apply a template: `skills/Beecon-create-agent/references/agent-instruction-templates.md`
+- Individual role templates: `skills/Beecon-create-agent/references/agents/`
+- Generic baseline role guide (no-template fallback): `skills/Beecon-create-agent/references/baseline-role-guide.md`
+- Pre-submit draft-review checklist: `skills/Beecon-create-agent/references/draft-review-checklist.md`
+- Endpoint payload shapes and full examples: `skills/Beecon-create-agent/references/api-reference.md`
