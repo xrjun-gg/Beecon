@@ -80,7 +80,7 @@ DELETE /api/issues/:issueId/watchdog
 
 ## How a scan works
 
-Paperclip runs a watchdog reconciliation tick at server startup, at the end of each heartbeat cycle, and on demand after any mutation that could change the watched subtree (status, blockers, assignment, interactions). The tick is per-company and only walks active rows.
+Beecon runs a watchdog reconciliation tick at server startup, at the end of each heartbeat cycle, and on demand after any mutation that could change the watched subtree (status, blockers, assignment, interactions). The tick is per-company and only walks active rows.
 
 For each active watchdog the tick:
 

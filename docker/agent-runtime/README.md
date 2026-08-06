@@ -30,13 +30,13 @@ exec path sources `nvm`. For the full exec-path contract, see
 `packages/plugins/sandbox-providers/SANDBOX-REQUIREMENTS.md`.
 
 **Beecon Binaries:**
-- `/usr/local/bin/Paperclip-agent-shim`: Go binary compiled from `tools/agent-shim/`. Reads `/run/Paperclip/runtime-command.json` and `syscall.Exec`s the harness CLI.
+- `/usr/local/bin/Beecon-agent-shim`: Go binary compiled from `tools/agent-shim/`. Reads `/run/Beecon/runtime-command.json` and `syscall.Exec`s the harness CLI.
 
 **Defaults:**
 - `USER`: 1000:1000 (Beecon, non-root)
 - `WORKDIR`: `/workspace` (mount workspace volumes here)
 - `ENTRYPOINT`: `/usr/bin/tini --` (PID-1 reaper, forwards signals)
-- `CMD`: `/usr/local/bin/Paperclip-agent-shim`
+- `CMD`: `/usr/local/bin/Beecon-agent-shim`
 
 ## Building Locally
 
@@ -62,7 +62,7 @@ docker buildx bake -f docker/agent-runtime/buildx-bake.hcl base claude --load
 docker run --rm ghcr.io/Paperclipai/agent-runtime-claude:dev claude-code --version
 ```
 
-- `/usr/local/bin/Paperclip-agent-shim`: Go binary compiled from `tools/agent-shim/`. Reads `/run/Paperclip/runtime-command.json` and `syscall.Exec`s the harness CLI.
+- `/usr/local/bin/Beecon-agent-shim`: Go binary compiled from `tools/agent-shim/`. Reads `/run/Beecon/runtime-command.json` and `syscall.Exec`s the harness CLI.
 
 - `USER`: 1000:1000 (Beecon, non-root)
 
@@ -70,7 +70,7 @@ docker run --rm ghcr.io/Paperclipai/agent-runtime-claude:dev claude-code --versi
 
 The main agent process runs as the shim (PID 1 under tini). The shim:
 
-1. Reads `/run/Paperclip/runtime-command.json` (path overridable via `-spec`), a JSON file mounted by whatever schedules the run
+1. Reads `/run/Beecon/runtime-command.json` (path overridable via `-spec`), a JSON file mounted by whatever schedules the run
 2. Parses `{ "command", "args" }`: the harness CLI and arguments
 3. Resolves the command on PATH and `syscall.Exec`s it, replacing itself
 4. SIGTERM from the kubelet propagates directly to the harness (no zombie processes)

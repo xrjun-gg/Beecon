@@ -27,7 +27,7 @@ Agents that can call arbitrary MCP tools can also leak data, modify accounts, or
 
 ## What's new for agents
 
-- Agents speak MCP only to the Paperclip gateway. The gateway returns the agent's effective tool list, validates each call against profile + policies, and records the result.
+- Agents speak MCP only to the Beecon gateway. The gateway returns the agent's effective tool list, validates each call against profile + policies, and records the result.
 - When a call resolves to `require_approval`, the agent's call blocks until a human decides. The agent does not see *why* a call was denied — that detail is in the audit log for the operator. This is deliberate: agents must not learn to route around denials.
 - Tool call arguments and results are subject to a redaction plan recorded on each call event.
 
@@ -64,7 +64,7 @@ There is no downgrade path that preserves audit history. If you must roll back, 
 - Trust rules match exact argument shapes only. Pattern-based trust rules are post-v1.
 - Rate limits are per-policy, not cross-policy aggregates.
 - Action request expiry is fixed by policy; approvers cannot extend from the UI.
-- Endpoint mode (Paperclip's own `/mcp` surface) is not subject to the profile/policy stack.
+- Endpoint mode (Beecon's own `/mcp` surface) is not subject to the profile/policy stack.
 - Local stdio runtime slots do not migrate across workers; capacity is per-worker, not per-cluster.
 
 ## Verification commands

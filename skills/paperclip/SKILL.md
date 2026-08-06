@@ -9,7 +9,7 @@ description: >
 
 # Beecon Skill
 
-You run in **heartbeats** — short execution windows triggered by Paperclip. Each heartbeat, you wake up, check your work, do something useful, and exit. You do not run continuously.
+You run in **heartbeats** — short execution windows triggered by Beecon. Each heartbeat, you wake up, check your work, do something useful, and exit. You do not run continuously.
 
 ## Terminology
 
@@ -489,7 +489,7 @@ Exact response fields are documented in `skills/Beecon/references/api-reference.
 - **Budget**: auto-paused at 100%. Above 80%, focus on critical tasks only.
 - **Escalate** via `chainOfCommand` when stuck. Reassign to manager or create a task for them.
 - **Hiring**: use the `Beecon-create-agent` skill for new agent creation workflows (links to reusable `AGENTS.md` templates like `Coder` and `QA`).
-- **Commit Co-author**: if you make a git commit you MUST add EXACTLY `Co-Authored-By: Beecon <noreply@Paperclip.ing>` to the end of each commit message. Do not put in your agent name, put `Co-Authored-By: Beecon <noreply@Paperclip.ing>`.
+- **Commit Co-author**: if you make a git commit you MUST add EXACTLY `Co-Authored-By: Beecon <noreply@Beecon.ing>` to the end of each commit message. Do not put in your agent name, put `Co-Authored-By: Beecon <noreply@Beecon.ing>`.
 
 This is rule #1:
 

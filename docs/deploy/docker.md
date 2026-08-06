@@ -16,7 +16,7 @@ Open [http://localhost:3100](http://localhost:3100).
 Defaults:
 
 - Host port: `3100`
-- Data directory: `./data/docker-Paperclip`
+- Data directory: `./data/docker-Beecon`
 
 Override with environment variables:
 
@@ -30,18 +30,18 @@ Paperclip_PORT=3200 Paperclip_DATA_DIR=../data/pc \
 ## Manual Docker Build
 
 ```sh
-docker build -t Paperclip-local .
-docker run --name Paperclip \
+docker build -t Beecon-local .
+docker run --name Beecon \
   -p 3100:3100 \
   -e HOST=0.0.0.0 \
-  -e Paperclip_HOME=/Paperclip \
-  -v "$(pwd)/data/docker-Paperclip:/Paperclip" \
-  Paperclip-local
+  -e Paperclip_HOME=/Beecon \
+  -v "$(pwd)/data/docker-Beecon:/Beecon" \
+  Beecon-local
 ```
 
 ## Data Persistence
 
-All data is persisted under the bind mount (`./data/docker-Paperclip`):
+All data is persisted under the bind mount (`./data/docker-Beecon`):
 
 - Embedded PostgreSQL data
 - Uploaded assets
@@ -60,15 +60,15 @@ The Docker image pre-installs these agent CLIs so their `*_local` adapters can r
 Pass API keys to enable local adapter runs inside the container:
 
 ```sh
-docker run --name Paperclip \
+docker run --name Beecon \
   -p 3100:3100 \
   -e HOST=0.0.0.0 \
-  -e Paperclip_HOME=/Paperclip \
+  -e Paperclip_HOME=/Beecon \
   -e OPENAI_API_KEY=sk-... \
   -e ANTHROPIC_API_KEY=sk-... \
   -e GEMINI_API_KEY=... \
-  -v "$(pwd)/data/docker-Paperclip:/Paperclip" \
-  Paperclip-local
+  -v "$(pwd)/data/docker-Beecon:/Beecon" \
+  Beecon-local
 ```
 
 Each adapter reads its provider's standard credentials — for example `ANTHROPIC_API_KEY` (Claude), `OPENAI_API_KEY` (Codex), and `GEMINI_API_KEY` or `GOOGLE_API_KEY` (Gemini). OpenCode is multi-provider and uses whichever provider key you supply.

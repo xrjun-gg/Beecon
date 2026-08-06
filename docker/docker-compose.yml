@@ -2,11 +2,11 @@ services:
   db:
     image: postgres:17-alpine
     environment:
-      POSTGRES_USER: Paperclip
-      POSTGRES_PASSWORD: Paperclip
-      POSTGRES_DB: Paperclip
+      POSTGRES_USER: Beecon
+      POSTGRES_PASSWORD: Beecon
+      POSTGRES_DB: Beecon
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U Paperclip -d Paperclip"]
+      test: ["CMD-SHELL", "pg_isready -U Beecon -d Beecon"]
       interval: 2s
       timeout: 5s
       retries: 30
@@ -22,7 +22,7 @@ services:
     ports:
       - "3100:3100"
     environment:
-      DATABASE_URL: postgres://Paperclip:Paperclip@db:5432/Paperclip
+      DATABASE_URL: postgres://Beecon:Beecon@db:5432/Beecon
       PORT: "3100"
       SERVE_UI: "true"
       Paperclip_DEPLOYMENT_MODE: "authenticated"
@@ -30,11 +30,11 @@ services:
       Paperclip_PUBLIC_URL: "${Paperclip_PUBLIC_URL:-http://localhost:3100}"
       BETTER_AUTH_SECRET: "${BETTER_AUTH_SECRET:?BETTER_AUTH_SECRET must be set}"
     volumes:
-      - Paperclip-data:/Paperclip
+      - Beecon-data:/Beecon
     depends_on:
       db:
         condition: service_healthy
 
 volumes:
   pgdata:
-  Paperclip-data:
+  Beecon-data:

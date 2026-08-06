@@ -22,7 +22,7 @@ Every agent has environment variables injected at runtime:
 |----------|-------------|
 | `Paperclip_AGENT_ID` | The agent's unique ID |
 | `Paperclip_COMPANY_ID` | The company the agent belongs to |
-| `Paperclip_API_URL` | Base URL for the Paperclip API |
+| `Paperclip_API_URL` | Base URL for the Beecon API |
 | `Paperclip_API_KEY` | Short-lived JWT for API authentication |
 | `Paperclip_RUN_ID` | Current heartbeat run ID |
 

@@ -2,7 +2,7 @@
 
 ## Scope
 
-Full Paperclip CLI/API parity smoke pass against a disposable local source-tree instance.
+Full Beecon CLI/API parity smoke pass against a disposable local source-tree instance.
 
 ## Isolation Contract
 
@@ -52,16 +52,16 @@ Full Paperclip CLI/API parity smoke pass against a disposable local source-tree 
 - Command: `env -u DATABASE_URL -u DATABASE_MIGRATION_URL ... zsh -lc 'printf ...'`; `lsof -nP -iTCP:3197 -sTCP:LISTEN || true`
 - Purpose: Confirm all required environment variables resolve to the scratch instance and the non-default server port is free.
 - Prerequisites/IDs used: none.
-- Expected result: All Paperclip/Codex/Claude paths point under `/Users/aronprins/Documents/PaperclipAI/paperclip/tmp/cli-api-parity`; `DATABASE_URL` and `DATABASE_MIGRATION_URL` are unset; port `3197` has no listener.
+- Expected result: All Beecon/Codex/Claude paths point under `/Users/aronprins/Documents/PaperclipAI/paperclip/tmp/cli-api-parity`; `DATABASE_URL` and `DATABASE_MIGRATION_URL` are unset; port `3197` has no listener.
 - Actual result: All required variables matched the isolation contract, database URLs were `<unset>`, and no listener was present on `3197`.
 - Status: PASS.
 - Output summary: No references to `~/.paperclip`, `~/.codex`, `~/.claude`, or `localhost:3100`.
-- Follow-up: Start Paperclip with the runbook command.
+- Follow-up: Start Beecon with the runbook command.
 
 ### 2026-05-24T11:06:45+02:00 - Start isolated instance
 
 - Command: `env -u DATABASE_URL -u DATABASE_MIGRATION_URL ... pnpm paperclipai onboard --yes --run --bind loopback`
-- Purpose: Create and start the disposable source-tree Paperclip instance.
+- Purpose: Create and start the disposable source-tree Beecon instance.
 - Prerequisites/IDs used: scratch env from Isolation Contract.
 - Expected result: Onboarding writes config, `.env`, secrets key, logs, storage, and embedded DB under the scratch instance; server listens on `127.0.0.1:3197`.
 - Actual result: Server started in `local_trusted/private` mode on `127.0.0.1:3197`, with embedded PostgreSQL data at `/Users/aronprins/Documents/PaperclipAI/paperclip/tmp/cli-api-parity/home/instances/cli-api-parity/db`.
@@ -121,7 +121,7 @@ Full Paperclip CLI/API parity smoke pass against a disposable local source-tree 
 - Expected result: Goal, agent, project, and issue CRUD succeeds; comments can be created and read; checkout succeeds for a todo issue.
 - Actual result: Goal `5b2a9135-1044-48d6-a17d-6b91dd9fdc74`, agent `1dd601a1-031a-4225-b005-419427fd059f`, project `d32032ce-d95e-4c4e-a942-dd98498025fb`, issue `f0250734-95f1-4c28-9e10-f1954649fffb`, and comment `231fd48a-9ed2-4e72-a3dc-3b762842f57d` were created/updated/read successfully. Explicit checkout of the first issue failed with 409 because assigning it at creation triggered automatic local process runs and checkout first.
 - Status: PASS with expected concurrency conflict.
-- Output summary: The assigned `process` adapter agent ran automatically and generated heartbeat runs. The issue later moved to `blocked` via recovery handling because the smoke process printed output without a concrete Paperclip disposition.
+- Output summary: The assigned `process` adapter agent ran automatically and generated heartbeat runs. The issue later moved to `blocked` via recovery handling because the smoke process printed output without a concrete Beecon disposition.
 - Follow-up: Create a second unassigned issue for an uncontended checkout/release command test.
 
 ### 2026-05-24T11:15:41+02:00 - Issue checkout/release
@@ -440,7 +440,7 @@ Full Paperclip CLI/API parity smoke pass against a disposable local source-tree 
 - Expected result: CLI LLM commands reach mounted routes, and available skill discovery does not read the real `~/.claude/skills` when `CLAUDE_HOME` is set.
 - Actual result: Focused tests passed; server and CLI typechecks passed.
 - Status: PASS.
-- Output summary: Mounted `llmRoutes` under `/api` in addition to the existing root mount. Updated available-skill discovery to read `CLAUDE_HOME/skills` when configured, include built-in Paperclip repo skills in `available-skill list`, and allow `available-skill get` for safe listed/built-in skill names.
+- Output summary: Mounted `llmRoutes` under `/api` in addition to the existing root mount. Updated available-skill discovery to read `CLAUDE_HOME/skills` when configured, include built-in Beecon repo skills in `available-skill list`, and allow `available-skill get` for safe listed/built-in skill names.
 - Follow-up: Restart isolated server and live-verify LLM docs plus available skill list/get behavior.
 
 ### 2026-05-24T12:30:05+02:00 - Live-verify LLM docs and available skill catalog isolation
@@ -448,8 +448,8 @@ Full Paperclip CLI/API parity smoke pass against a disposable local source-tree 
 - Command: `pnpm paperclipai llm agent-configuration --json`; `pnpm paperclipai llm agent-icons --json`; `pnpm paperclipai llm agent-configuration:adapter process --json`; `pnpm paperclipai available-skill list --json`; `pnpm paperclipai available-skill get paperclip --json`; `pnpm paperclipai available-skill get cmux --json`; `pnpm paperclipai openapi --json`
 - Purpose: Verify docs/catalog fixes on the restarted disposable source-tree server.
 - Prerequisites/IDs used: Same isolated env; server restarted after code changes.
-- Expected result: LLM docs commands pass; built-in Paperclip skills are listed and fetchable; real-user `~/.claude` skills are not listed; `openapi` still documents the unresolved gap if no route exists.
-- Actual result: LLM docs commands passed. `available-skill list` returned Paperclip repo skills such as `diagnose-why-work-stopped`; `available-skill get paperclip` returned markdown. `available-skill get cmux` now returns 404 because `cmux` is no longer listed from the real Claude home. `openapi` still returns `404: API route not found`.
+- Expected result: LLM docs commands pass; built-in Beecon skills are listed and fetchable; real-user `~/.claude` skills are not listed; `openapi` still documents the unresolved gap if no route exists.
+- Actual result: LLM docs commands passed. `available-skill list` returned Beecon repo skills such as `diagnose-why-work-stopped`; `available-skill get paperclip` returned markdown. `available-skill get cmux` now returns 404 because `cmux` is no longer listed from the real Claude home. `openapi` still returns `404: API route not found`.
 - Status: MIXED.
 - Output summary: Fixed the LLM route and available-skill isolation/list-get consistency parts of `MISMATCH-007`; `GET /api/openapi.json` remains unresolved.
 - Follow-up: Commit scoped fixes and leave OpenAPI generation as the remaining docs/catalog parity gap.
@@ -482,7 +482,7 @@ Full Paperclip CLI/API parity smoke pass against a disposable local source-tree 
 - Purpose: Start worktree/cloud parity coverage with read-only or dry-run commands before attempting any lifecycle command that creates branches, worktrees, or external cloud connections.
 - Prerequisites/IDs used: Scratch config `/Users/aronprins/Documents/PaperclipAI/paperclip/tmp/cli-api-parity/home/instances/cli-api-parity/config.json`; scratch worktree root `/Users/aronprins/Documents/PaperclipAI/paperclip/tmp/cli-api-parity/worktrees-home`; company `12e9db4b-f66c-459b-959e-d645002240fb`.
 - Expected result: Worktree list and env introspection should use scratch config/environment; merge-history should reject identical source/target configs without mutating state; cloud push should fail safely if cloud sync is not enabled/configured.
-- Actual result: `worktree:list` passed and showed the current repo branch `improvement/cli-api-parity` with no Paperclip worktree config. `worktree env --config <scratch-config> --json` passed and printed the scratch `PAPERCLIP_CONFIG` plus generated env values; the generated JWT secret is intentionally not copied into this log. `worktree:merge-history --from current --to current --company CLI --dry` failed as expected with `Source and target Paperclip configs are the same. Choose different --from/--to worktrees.` `cloud push --dry-run` failed as expected with `Cloud sync is disabled. Enable the cloud sync experimental setting before running paperclipai cloud push.`
+- Actual result: `worktree:list` passed and showed the current repo branch `improvement/cli-api-parity` with no Beecon worktree config. `worktree env --config <scratch-config> --json` passed and printed the scratch `PAPERCLIP_CONFIG` plus generated env values; the generated JWT secret is intentionally not copied into this log. `worktree:merge-history --from current --to current --company CLI --dry` failed as expected with `Source and target Beecon configs are the same. Choose different --from/--to worktrees.` `cloud push --dry-run` failed as expected with `Cloud sync is disabled. Enable the cloud sync experimental setting before running paperclipai cloud push.`
 - Status: PASS for safe/gated coverage.
 - Output summary: Worktree read-only/dry-run paths behaved safely. Cloud push was not attempted against a real upstream and remained blocked by scratch instance settings.
 - Follow-up: Continue with a scratch-only worktree lifecycle test. Cloud requires an experimental setting plus a configured upstream; keep it gated unless a disposable fake upstream can be wired without touching the real install.
@@ -512,13 +512,13 @@ Full Paperclip CLI/API parity smoke pass against a disposable local source-tree 
 ### 2026-05-24T13:11:19+02:00 - Cloud fake-upstream and remaining run/connect coverage
 
 - Command: disposable Node fake upstream on `http://127.0.0.1:3199`; `instance settings:experimental:update --payload-json '{"enableCloudSync":true}' --json`; `cloud connect http://127.0.0.1:3199 --no-browser --json`; `cloud push --company 12e9db4b-f66c-459b-959e-d645002240fb --remote-url http://127.0.0.1:3199 --dry-run --json`; `run live --company-id ... --limit 5 --min-count 1 --json`; `run issues 9c686a91-c88a-47aa-9326-a889c4281d2b --json`; `run workspace-operations 9c686a91-c88a-47aa-9326-a889c4281d2b --json`; `run workspace-log 00000000-0000-4000-8000-000000000000 --json`; `run cancel 9c686a91-c88a-47aa-9326-a889c4281d2b --json`; `run watchdog-decision 9c686a91-c88a-47aa-9326-a889c4281d2b --decision continue --reason "CLI parity watchdog decision smoke" --json`; `connect --persona board --api-base http://127.0.0.1:3197 --profile cli-connect-smoke --context <scratch-context> --json`
-- Purpose: Exercise cloud connect/push without a real external Paperclip Cloud stack, finish run subcommands that were not covered by earlier run list/get/events/log checks, and verify `connect` behavior in the non-interactive test runner.
+- Purpose: Exercise cloud connect/push without a real external Beecon Cloud stack, finish run subcommands that were not covered by earlier run list/get/events/log checks, and verify `connect` behavior in the non-interactive test runner.
 - Prerequisites/IDs used: Fake cloud server on loopback port `3199`; company `12e9db4b-f66c-459b-959e-d645002240fb`; heartbeat run `9c686a91-c88a-47aa-9326-a889c4281d2b` created by `heartbeat run`; scratch context and config paths.
 - Expected result: Cloud sync can be enabled only in the scratch instance; `cloud connect` stores a fake upstream connection under scratch `PAPERCLIP_HOME`; `cloud push --dry-run` exports local company data and posts a preview bundle to the fake upstream; run read/control commands return structured results or controlled 404 for a nonexistent workspace operation; `connect` refuses non-interactive execution with guidance.
 - Actual result: Experimental `enableCloudSync` was enabled in the scratch instance. `cloud connect --no-browser` completed against the fake upstream and stored a fake connection. `cloud push --dry-run` returned a fake preview response with summary `{create:0, update:0, adopt:0, skip:1, conflict:0, staleMapping:0}`. `run live`, `run issues`, and `run workspace-operations` passed; workspace operations returned an empty list. `run workspace-log` on a sentinel ID returned expected `404: Workspace operation not found`. `run cancel` on the already completed run returned the run unchanged with status `succeeded`. `run watchdog-decision` created a watchdog decision record. `connect` returned expected non-interactive error: use `--api-base/--api-key` or context/token commands for scripts.
 - Status: PASS for fake-cloud dry-run and remaining safe run/connect coverage.
-- Output summary: Fake cloud artifacts are under `tmp/cli-api-parity/artifacts/cloud-*`. The fake cloud token is synthetic and stored only in scratch Paperclip home. `connect` remains intentionally interactive; scriptable equivalent coverage is via `context set`, token commands, `whoami`, and agent/board prompt flows already tested.
-- Follow-up: Stop the fake upstream server. Keep the real scratch Paperclip server running on `127.0.0.1:3197`.
+- Output summary: Fake cloud artifacts are under `tmp/cli-api-parity/artifacts/cloud-*`. The fake cloud token is synthetic and stored only in scratch Beecon home. `connect` remains intentionally interactive; scriptable equivalent coverage is via `context set`, token commands, `whoami`, and agent/board prompt flows already tested.
+- Follow-up: Stop the fake upstream server. Keep the real scratch Beecon server running on `127.0.0.1:3197`.
 
 ### 2026-05-24T13:15:09+02:00 - Routine lifecycle coverage
 
@@ -547,7 +547,7 @@ Full Paperclip CLI/API parity smoke pass against a disposable local source-tree 
 - Command: `health --json`; `token board list --json`; `token agent list --company-id 12e9db4b-f66c-459b-959e-d645002240fb --agent 1dd601a1-031a-4225-b005-419427fd059f --json`; `routine list --company-id ... --json`; `plugin list --json`; `openapi --json`; `git status --short --branch`; `lsof -nP -iTCP:3197 -sTCP:LISTEN`; `lsof -nP -iTCP:3199 -sTCP:LISTEN`
 - Purpose: Confirm the disposable instance is still healthy, no temporary token/plugin/routine resources remain active, the fake cloud server is stopped, and git state is clean after all fixes.
 - Prerequisites/IDs used: Same scratch env and company/agent IDs.
-- Expected result: Paperclip remains running on `127.0.0.1:3197`; fake cloud port `3199` is stopped; no active board or agent tokens from the test remain; plugin list is empty; disposable routine is archived; `openapi` remains the one documented unresolved API route gap.
+- Expected result: Beecon remains running on `127.0.0.1:3197`; fake cloud port `3199` is stopped; no active board or agent tokens from the test remain; plugin list is empty; disposable routine is archived; `openapi` remains the one documented unresolved API route gap.
 - Actual result: Health returned `status: ok`; process `11566` is listening on `127.0.0.1:3197`; no process is listening on `3199`; final board token list has 2 revoked keys and no active keys; final agent token list has 4 revoked keys and no active keys; plugin list is empty; routine list contains the archived disposable routine and no active routines; `openapi --json` still returns `404: API route not found`; git status was clean before this final log update.
 - Status: PASS with known unresolved OpenAPI gap.
 - Output summary: Final artifacts are under `tmp/cli-api-parity/artifacts/final-*`.
@@ -559,7 +559,7 @@ Full Paperclip CLI/API parity smoke pass against a disposable local source-tree 
 - Purpose: Close the remaining documented `openapi` CLI/API parity gap without introducing a new generator dependency during the live parity run.
 - Prerequisites/IDs used: Same scratch env, API URL `http://127.0.0.1:3197`, and local source-tree install.
 - Expected result: `/api/openapi.json` and `paperclipai openapi --json` return a valid OpenAPI 3.0 document with the reference route inventory, including representative CLI/API parity paths such as `/api/companies/{companyId}/agents` and `/api/agents/{id}/keys`.
-- Actual result: Focused test and `server` typecheck passed. After restart, direct curl returned `{"openapi":"3.0.0","pathCount":247}`. The CLI command returned `openapi: "3.0.0"`, title `Paperclip API`, `247` paths, `/api/openapi.json` summary `Get the generated OpenAPI document`, and `/api/agents/{id}/keys` POST summary `Create an agent API key`.
+- Actual result: Focused test and `server` typecheck passed. After restart, direct curl returned `{"openapi":"3.0.0","pathCount":247}`. The CLI command returned `openapi: "3.0.0"`, title `Beecon API`, `247` paths, `/api/openapi.json` summary `Get the generated OpenAPI document`, and `/api/agents/{id}/keys` POST summary `Create an agent API key`.
 - Status: PASS after MISMATCH-007 OpenAPI fix.
 - Output summary: Live OpenAPI artifact is `tmp/cli-api-parity/artifacts/openapi-live-after-fix.json`. The route exposes operation inventory, tags, summaries, and standard responses from the parity reference; it intentionally does not yet include full request/response schemas.
 - Follow-up: Commit the OpenAPI route fix, then rerun the final inventory/status sweep.
@@ -636,7 +636,7 @@ Full Paperclip CLI/API parity smoke pass against a disposable local source-tree 
 - Purpose: Preserve the exact user-facing closeout in the reproducible CLI/API parity audit trail.
 - Prerequisites/IDs used: Scratch server on `http://127.0.0.1:3197`; company `12e9db4b-f66c-459b-959e-d645002240fb`; agent `1dd601a1-031a-4225-b005-419427fd059f`; final clean sweep artifacts under `tmp/cli-api-parity/artifacts/final-clean-sweep`.
 - Expected result: The log includes the final paths, command coverage, bug/fix summary, cleanup state, verification commands, and manual continuation instructions that were reported to the user.
-- Actual result: Final handoff stated that the full isolated CLI/API parity pass completed and was committed, the scratch Paperclip server was still running on `http://127.0.0.1:3197`, and goal usage was 2,625,855 tokens over about 2h 23m.
+- Actual result: Final handoff stated that the full isolated CLI/API parity pass completed and was committed, the scratch Beecon server was still running on `http://127.0.0.1:3197`, and goal usage was 2,625,855 tokens over about 2h 23m.
 - Status: PASS.
 - Output summary:
 
@@ -828,11 +828,11 @@ pnpm paperclipai health --json
 - Reproduction command: `HOME=/Users/aronprins/Documents/PaperclipAI/paperclip/tmp/cli-api-parity/shell-home pnpm paperclipai worktree:make cli-parity-wt --home /Users/aronprins/Documents/PaperclipAI/paperclip/tmp/cli-api-parity/worktree-instances --from-config /Users/aronprins/Documents/PaperclipAI/paperclip/tmp/cli-api-parity/home/instances/cli-api-parity/config.json --server-port 3198 --db-port 54331 --seed-mode minimal`.
 - Expected result: The command creates the scratch git worktree and runs one dependency install inside it.
 - Actual result: After creating the git worktree, `installDependenciesBestEffort()` executed bare `pnpm install`. With `HOME` redirected for isolation, the user's pnpm shim repeatedly spawned `pnpm add pnpm@9.15.4` under the scratch home and the command did not reach worktree initialization until the runaway process tree was stopped.
-- Suspected cause: The CLI did not reuse the pnpm executable that launched the current Paperclip command, so dependency installation was subject to PATH/shim behavior under an overridden `HOME`.
+- Suspected cause: The CLI did not reuse the pnpm executable that launched the current Beecon command, so dependency installation was subject to PATH/shim behavior under an overridden `HOME`.
 - Files changed: `cli/src/commands/worktree.ts`, `cli/src/__tests__/worktree.test.ts`, `doc/bugs/2026-05-24-cli-api-parity-e2e-log.md`.
 - Fix summary: Added `resolvePnpmInstallInvocation()` and changed worktree dependency installation to reuse `npm_execpath` when the CLI was launched through pnpm, falling back to bare `pnpm` only when no pnpm launcher is available.
 - Verification command: `pnpm exec vitest run cli/src/__tests__/worktree.test.ts`; `pnpm --dir cli typecheck`; live isolated `worktree:cleanup --force` for the partial worktree; live isolated `worktree:make ... --seed-mode minimal`; `worktree:list --json`; `worktree env --config <scratch-worktree-config> --json`; `worktree:merge-history --from paperclip-cli-parity-wt --to current --company CLI --dry`.
-- Remaining risk: Low. If Paperclip is launched outside pnpm, dependency installation still falls back to PATH lookup as before.
+- Remaining risk: Low. If Beecon is launched outside pnpm, dependency installation still falls back to PATH lookup as before.
 
 ### BUG-008 - `configure --section <invalid>` printed an error but exited 0
 
@@ -973,7 +973,7 @@ pnpm paperclipai health --json
 - Actual result: Initially, `openapi` and all tested `llm` commands returned `404: API route not found`. `available-skill list` returned `cmux` from the real Claude home, but `available-skill get cmux` returned `404: Skill not found`.
 - Suspected cause: LLM routes were mounted at root while the CLI calls `/api/llms`; available-skill discovery used `HOME/.claude/skills` instead of `CLAUDE_HOME`; OpenAPI generation was referenced by CLI/docs but no route was mounted.
 - Files changed: `server/src/app.ts`, `server/src/routes/access.ts`, `server/src/routes/openapi.ts`, `server/src/__tests__/openapi-routes.test.ts`, `doc/bugs/2026-05-24-cli-api-parity-e2e-log.md`.
-- Fix summary: Mounted LLM docs routes under `/api`; made available-skill discovery honor `CLAUDE_HOME`, include built-in Paperclip repo skills, and fetch safe skill markdown consistently; added `/api/openapi.json`, then upgraded it from the initial path inventory to the schema-backed `OpenAPIRegistry`/`OpenApiGeneratorV3` implementation from the parity reference.
+- Fix summary: Mounted LLM docs routes under `/api`; made available-skill discovery honor `CLAUDE_HOME`, include built-in Beecon repo skills, and fetch safe skill markdown consistently; added `/api/openapi.json`, then upgraded it from the initial path inventory to the schema-backed `OpenAPIRegistry`/`OpenApiGeneratorV3` implementation from the parity reference.
 - Verification command: `pnpm exec vitest run server/src/__tests__/llms-routes.test.ts cli/src/__tests__/access-parity.test.ts`; `pnpm --dir server typecheck`; `pnpm --dir cli typecheck`; live `llm` and `available-skill` commands after restart; `pnpm exec vitest run server/src/__tests__/openapi-routes.test.ts`; live `curl http://127.0.0.1:3197/api/openapi.json`; live `pnpm paperclipai openapi --json`; follow-up live schema-backed `paperclipai openapi --json`.
 - Remaining risk: Medium-low; the generator now includes shared Zod request schemas and security metadata, but response schemas remain intentionally generic for most endpoints until the API exports reusable response schemas.
 
@@ -983,10 +983,10 @@ pnpm paperclipai health --json
 - Severity: Medium isolation bug for local E2E runs.
 - Reproduction command: `CLAUDE_HOME=/Users/aronprins/Documents/PaperclipAI/paperclip/tmp/cli-api-parity/claude-home pnpm paperclipai available-skill list --json`.
 - Expected result: Skill discovery uses the isolated Claude home or built-in repo skills only.
-- Actual result: Before the fix, the list included `cmux` from the real user Claude skills home, and `available-skill get cmux` failed because only a hardcoded Paperclip subset was fetchable.
-- Suspected cause: Server code read `HOME/.claude/skills` directly and did not add built-in Paperclip skills unless they were present in Claude's skills directory.
+- Actual result: Before the fix, the list included `cmux` from the real user Claude skills home, and `available-skill get cmux` failed because only a hardcoded Beecon subset was fetchable.
+- Suspected cause: Server code read `HOME/.claude/skills` directly and did not add built-in Beecon skills unless they were present in Claude's skills directory.
 - Files changed: `server/src/routes/access.ts`, `doc/bugs/2026-05-24-cli-api-parity-e2e-log.md`.
-- Fix summary: Use `CLAUDE_HOME/skills` when `CLAUDE_HOME` is set, include built-in Paperclip skills in catalog output, and resolve safe skill markdown from both Claude and Paperclip skills directories.
+- Fix summary: Use `CLAUDE_HOME/skills` when `CLAUDE_HOME` is set, include built-in Beecon skills in catalog output, and resolve safe skill markdown from both Claude and Beecon skills directories.
 - Verification command: live `available-skill list`, `available-skill get paperclip`, and `available-skill get cmux` after restarting the isolated server.
 - Remaining risk: Low; this is runtime environment-sensitive and covered by live isolated verification.
 

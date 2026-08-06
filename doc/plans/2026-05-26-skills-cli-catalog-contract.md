@@ -2,7 +2,7 @@
 
 Status: Phase A engineering contract
 Date: 2026-05-26
-Source plan: approved Paperclip skills CLI and catalog plan
+Source plan: approved Beecon skills CLI and catalog plan
 
 This document freezes the first implementation contract for the `paperclipai skills`
 command group and the app-shipped skills catalog. It is intentionally a build
@@ -10,13 +10,13 @@ contract, not a full product spec.
 
 ## Decisions
 
-- `paperclipai skills` manages Paperclip company skills. It does not manage
+- `paperclipai skills` manages Beecon company skills. It does not manage
   local adapter homes directly.
 - Installing a skill means adding or updating a company-scoped
   `company_skills` record.
 - Attaching a skill to an agent is a separate agent desired-state operation.
 - Adapter runtime sync is a third step handled through adapter skill APIs.
-- Root `skills/` remains reserved for Paperclip runtime and operational skills.
+- Root `skills/` remains reserved for Beecon runtime and operational skills.
 - App-shipped catalog skills live in `packages/skills-catalog`, not root
   `skills/`.
 - Catalog skills are inspectable before install. Inspection never mutates company
@@ -103,7 +103,7 @@ These commands are Phase B and use existing agent skill APIs.
 | Command | Behavior | JSON output |
 |---|---|---|
 | `skills agent list <agent-ref>` | Resolves the agent using existing agent reference behavior, then prints the adapter `AgentSkillSnapshot`. Human rows include `key`, `runtimeName`, `desired`, `managed`, `required`, `state`, `origin`, and `detail`. | `AgentSkillSnapshot` |
-| `skills agent sync <agent-ref> --skill <skill-ref>...` | Replaces the agent's non-required desired skill set with the supplied refs and triggers adapter sync. Required Paperclip skills remain enforced by the server. | `AgentSkillSnapshot` |
+| `skills agent sync <agent-ref> --skill <skill-ref>...` | Replaces the agent's non-required desired skill set with the supplied refs and triggers adapter sync. Required Beecon skills remain enforced by the server. | `AgentSkillSnapshot` |
 | `skills agent clear <agent-ref> [--yes]` | Clears non-required desired skills by sending an empty desired list, then returns the adapter snapshot. | `AgentSkillSnapshot` |
 
 The word `sync` is deliberate: it is a desired-state replacement, not an append.
@@ -120,7 +120,7 @@ These commands are Phase E and depend on the catalog APIs from Phase D.
 | `skills inspect <catalog-ref>` | Shows app-shipped catalog detail and file inventory. Does not mutate company state. | `CatalogSkillDetail` |
 | `skills install <catalog-ref> [--as <slug>] [--force]` | Installs a catalog skill into a company library. `--as` overrides the company skill slug. `--force` may replace a same-key catalog skill but must not bypass hard validation or dangerous security findings. | `CompanySkillInstallCatalogResult` |
 
-Catalog commands are for the app-shipped Paperclip catalog only. External GitHub,
+Catalog commands are for the app-shipped Beecon catalog only. External GitHub,
 skills.sh, local path, and URL installs remain under `skills import <source>` in
 the first release.
 

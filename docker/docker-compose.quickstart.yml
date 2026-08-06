@@ -1,4 +1,4 @@
-# Quickstart: single-container Paperclip with embedded database.
+# Quickstart: single-container Beecon with embedded database.
 # Copy this file and set the required env vars before running.
 #
 #   cd docker
@@ -7,7 +7,7 @@
 #   docker compose -f docker-compose.quickstart.yml up --build
 #
 services:
-  Paperclip:
+  Beecon:
     build:
       context: ..
       dockerfile: Dockerfile
@@ -15,7 +15,7 @@ services:
       - "${Paperclip_PORT:-3100}:3100"
     environment:
       HOST: "0.0.0.0"
-      Paperclip_HOME: "/Paperclip"
+      Paperclip_HOME: "/Beecon"
 
       # ── LLM provider keys (at least one is needed for agents to work) ──
       OPENAI_API_KEY: "${OPENAI_API_KEY:-}"
@@ -33,4 +33,4 @@ services:
       BETTER_AUTH_SECRET: "${BETTER_AUTH_SECRET:?BETTER_AUTH_SECRET must be set}"
     volumes:
       # Persistent data directory (database, agent workspaces, uploads)
-      - "${Paperclip_DATA_DIR:-../data/docker-Paperclip}:/Paperclip"
+      - "${Paperclip_DATA_DIR:-../data/docker-Beecon}:/Beecon"

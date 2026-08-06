@@ -3,7 +3,7 @@ title: CLI Overview
 summary: CLI installation and setup
 ---
 
-The Paperclip CLI handles instance setup, diagnostics, and control-plane operations.
+The Beecon CLI handles instance setup, diagnostics, and control-plane operations.
 
 ## Usage
 
@@ -17,7 +17,7 @@ All commands support:
 
 | Flag | Description |
 |------|-------------|
-| `--data-dir <path>` | Local Paperclip data root (isolates from `~/.Paperclip`) |
+| `--data-dir <path>` | Local Beecon data root (isolates from `~/.Beecon`) |
 | `--api-base <url>` | API base URL |
 | `--api-key <token>` | API authentication token |
 | `--context <path>` | Context file path |
@@ -29,7 +29,7 @@ Company-scoped commands also accept `--company-id <id>`.
 For clean local instances, pass `--data-dir` on the command you run:
 
 ```sh
-pnpm Paperclipai run --data-dir ./tmp/Paperclip-dev
+pnpm Paperclipai run --data-dir ./tmp/Beecon-dev
 ```
 
 ## Context Profiles
@@ -67,7 +67,7 @@ pnpm Paperclipai secrets doctor --company-id <company-id>
 pnpm Paperclipai secrets migrate-inline-env --company-id <company-id> --apply
 ```
 
-Context is stored at `~/.Paperclip/context.json`.
+Context is stored at `~/.Beecon/context.json`.
 
 ## Command Categories
 

@@ -111,11 +111,11 @@ pnpm Paperclipai allowed-hostname my-tailscale-host
 
 | Data | Default Path |
 |------|-------------|
-| Config | `~/.Paperclip/instances/default/config.json` |
-| Database | `~/.Paperclip/instances/default/db` |
-| Logs | `~/.Paperclip/instances/default/logs` |
-| Storage | `~/.Paperclip/instances/default/data/storage` |
-| Secrets key | `~/.Paperclip/instances/default/secrets/master.key` |
+| Config | `~/.Beecon/instances/default/config.json` |
+| Database | `~/.Beecon/instances/default/db` |
+| Logs | `~/.Beecon/instances/default/logs` |
+| Storage | `~/.Beecon/instances/default/data/storage` |
+| Secrets key | `~/.Beecon/instances/default/secrets/master.key` |
 
 Override with:
 
@@ -126,6 +126,6 @@ Paperclip_HOME=/custom/home Paperclip_INSTANCE_ID=dev pnpm Paperclipai run
 Or pass `--data-dir` directly on any command:
 
 ```sh
-pnpm Paperclipai run --data-dir ./tmp/Paperclip-dev
-pnpm Paperclipai doctor --data-dir ./tmp/Paperclip-dev
+pnpm Paperclipai run --data-dir ./tmp/Beecon-dev
+pnpm Paperclipai doctor --data-dir ./tmp/Beecon-dev
 ```

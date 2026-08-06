@@ -85,7 +85,7 @@ For safer parallel local experiments, initialize a dedicated worktree instance i
 
 ```sh
 pnpm Paperclipai worktree:make local-lab --seed-mode minimal
-cd ~/Paperclip-local-lab
+cd ~/Beecon-local-lab
 pnpm Paperclipai worktree env                       # inspect generated env exports
 eval "$(pnpm Paperclipai worktree env)"             # bash/zsh
 pnpm Paperclipai run
@@ -95,8 +95,8 @@ pnpm Paperclipai doctor
 If the experiment gets noisy, repair or reseed the worktree without touching the main branch:
 
 ```sh
-pnpm Paperclipai worktree repair --branch Paperclip-local-lab
-pnpm Paperclipai worktree reseed --from . --to Paperclip-local-lab
+pnpm Paperclipai worktree repair --branch Beecon-local-lab
+pnpm Paperclipai worktree reseed --from . --to Beecon-local-lab
 ```
 
 When done, shut it down and remove the isolated state explicitly:
@@ -110,7 +110,7 @@ pnpm Paperclipai worktree:cleanup local-lab --force
 To wipe local data and start fresh:
 
 ```sh
-rm -rf ~/.Paperclip/instances/default/db
+rm -rf ~/.Beecon/instances/default/db
 pnpm dev
 ```
 
@@ -118,11 +118,11 @@ pnpm dev
 
 | Data | Path |
 |------|------|
-| Config | `~/.Paperclip/instances/default/config.json` |
-| Database | `~/.Paperclip/instances/default/db` |
-| Storage | `~/.Paperclip/instances/default/data/storage` |
-| Secrets key | `~/.Paperclip/instances/default/secrets/master.key` |
-| Logs | `~/.Paperclip/instances/default/logs` |
+| Config | `~/.Beecon/instances/default/config.json` |
+| Database | `~/.Beecon/instances/default/db` |
+| Storage | `~/.Beecon/instances/default/data/storage` |
+| Secrets key | `~/.Beecon/instances/default/secrets/master.key` |
+| Logs | `~/.Beecon/instances/default/logs` |
 
 Override with environment variables:
 

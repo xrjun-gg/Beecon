@@ -18,7 +18,7 @@ Before you start the recording:
 - The Tools & Access UI open at `/<prefix>/companies/<companyId>/tools`.
 - A browser tab open on the **Values UI** at `http://127.0.0.1:8848/` (you will open this in Step 1).
 
-All API requests use `Authorization: Bearer $BOARD_API_KEY` for board calls. Gateway calls use a dedicated session token via the `X-Paperclip-Tool-Gateway-Token` header — they do not use `Authorization`. See Step 5 for how the token is minted.
+All API requests use `Authorization: Bearer $BOARD_API_KEY` for board calls. Gateway calls use a dedicated session token via the `X-Beecon-Tool-Gateway-Token` header — they do not use `Authorization`. See Step 5 for how the token is minted.
 
 ## Step 0 — Frame the demo
 
@@ -157,11 +157,11 @@ In production, the agent obtains this token from its own run bootstrap (agent JW
 
 ## Step 5 — The read tool (allowed)
 
-Gateway calls use the session token via `X-Paperclip-Tool-Gateway-Token`. The body uses `tool` (string) and `parameters` (object).
+Gateway calls use the session token via `X-Beecon-Tool-Gateway-Token`. The body uses `tool` (string) and `parameters` (object).
 
 ```sh
 curl -fsS -X POST \
-  -H "X-Paperclip-Tool-Gateway-Token: $GATEWAY_TOKEN" \
+  -H "X-Beecon-Tool-Gateway-Token: $GATEWAY_TOKEN" \
   -H "Content-Type: application/json" \
   "$PAPERCLIP_URL/api/tool-gateway/tools/call" \
   -d '{ "tool": "kv_list", "parameters": {} }' \
@@ -176,7 +176,7 @@ Switch to the **Audit** tab in the UI. Refresh. The newest row is `tool_gateway.
 
 ```sh
 curl -i -X POST \
-  -H "X-Paperclip-Tool-Gateway-Token: $GATEWAY_TOKEN" \
+  -H "X-Beecon-Tool-Gateway-Token: $GATEWAY_TOKEN" \
   -H "Content-Type: application/json" \
   "$PAPERCLIP_URL/api/tool-gateway/tools/call" \
   -d '{ "tool": "kv_delete", "parameters": { "key": "demo/launch" } }'
@@ -199,7 +199,7 @@ Either `quarantined_catalog_entry` (catalog quarantine, the path we set up in St
 
 Spoken note:
 
-> "The agent doesn't know whether the tool was denied by the profile, by a policy, or by quarantine. It just knows the call failed and the reason code. The operator sees the full decision in the audit row. The KV server was never touched — the gateway short-circuited before the request left Paperclip."
+> "The agent doesn't know whether the tool was denied by the profile, by a policy, or by quarantine. It just knows the call failed and the reason code. The operator sees the full decision in the audit row. The KV server was never touched — the gateway short-circuited before the request left Beecon."
 
 ## Step 7 — The agent call that triggers approval
 
@@ -207,7 +207,7 @@ Spoken note:
 
 ```sh
 CALL=$(curl -sS -w '\n%{http_code}' -X POST \
-  -H "X-Paperclip-Tool-Gateway-Token: $GATEWAY_TOKEN" \
+  -H "X-Beecon-Tool-Gateway-Token: $GATEWAY_TOKEN" \
   -H "Content-Type: application/json" \
   "$PAPERCLIP_URL/api/tool-gateway/tools/call" \
   -d '{ "tool": "kv_set", "parameters": { "key": "demo/launch", "value": "shipped" } }')
@@ -244,7 +244,7 @@ The agent retries the same call with `approvedActionRequestId` set to the action
 
 ```sh
 curl -fsS -X POST \
-  -H "X-Paperclip-Tool-Gateway-Token: $GATEWAY_TOKEN" \
+  -H "X-Beecon-Tool-Gateway-Token: $GATEWAY_TOKEN" \
   -H "Content-Type: application/json" \
   "$PAPERCLIP_URL/api/tool-gateway/tools/call" \
   -d '{
@@ -265,7 +265,7 @@ Replay the read to close the loop — the agent's view of the world now matches 
 
 ```sh
 curl -fsS -X POST \
-  -H "X-Paperclip-Tool-Gateway-Token: $GATEWAY_TOKEN" \
+  -H "X-Beecon-Tool-Gateway-Token: $GATEWAY_TOKEN" \
   -H "Content-Type: application/json" \
   "$PAPERCLIP_URL/api/tool-gateway/tools/call" \
   -d '{ "tool": "kv_get", "parameters": { "key": "demo/launch" } }' \
@@ -334,7 +334,7 @@ The KV server keeps state in process memory. Restart the server to drop everythi
 pnpm --filter @paperclipai/kv-demo-mcp-server start
 ```
 
-The next `kv_list` call returns an empty `entries` array. The Values UI shows the empty table again. Paperclip's audit history is untouched — it still records that the calls happened, just against a server that has since reset.
+The next `kv_list` call returns an empty `entries` array. The Values UI shows the empty table again. Beecon's audit history is untouched — it still records that the calls happened, just against a server that has since reset.
 
 If the port is still bound after `Ctrl+C` (the process is gone but TCP timewait is pending), find any leftover process and stop it:
 
@@ -343,7 +343,7 @@ lsof -nP -iTCP:8848 -sTCP:LISTEN
 kill <pid>
 ```
 
-### Paperclip-side cleanup (for a fully clean state)
+### Beecon-side cleanup (for a fully clean state)
 
 Run these if you want the connection and application out of the way as well. Skip them if you plan to keep the demo around for repeat recordings; the smoke replay still works as long as the KV server is running.
 
@@ -374,9 +374,9 @@ Audit history is retained; the connection and application stay archived for the 
 
 ## What lives where
 
-The demo is also the clearest way to show the data boundary between Paperclip and the upstream MCP server.
+The demo is also the clearest way to show the data boundary between Beecon and the upstream MCP server.
 
-| Concern | Stored in the KV demo server | Stored in Paperclip |
+| Concern | Stored in the KV demo server | Stored in Beecon |
 | --- | --- | --- |
 | Key/value entries | In-memory `Map`, lost on restart. | Not stored. The gateway only sees the MCP request/response envelope. |
 | Connection record (URL, optional token) | Not stored. | Persisted in `tool_connections`. The optional `KV_DEMO_TOKEN` becomes a secret. |

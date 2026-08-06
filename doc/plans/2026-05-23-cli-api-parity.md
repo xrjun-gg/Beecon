@@ -6,7 +6,7 @@ Status: PRD
 
 ## Summary
 
-Paperclip already exposes a broad REST API, but the CLI only covers a narrow operator slice: setup/configuration, context profiles, board auth, companies import/export/delete, issues basic CRUD/comments/checkout/release, approvals, agents list/get/local CLI key export, activity, dashboard, secrets basics, plugin lifecycle basics, feedback export, and cloud sync.
+Beecon already exposes a broad REST API, but the CLI only covers a narrow operator slice: setup/configuration, context profiles, board auth, companies import/export/delete, issues basic CRUD/comments/checkout/release, approvals, agents list/get/local CLI key export, activity, dashboard, secrets basics, plugin lifecycle basics, feedback export, and cloud sync.
 
 The next CLI product slice should make the CLI a real external API entry point:
 
@@ -15,7 +15,7 @@ The next CLI product slice should make the CLI a real external API entry point:
 3. Provide single-command agent execution and prompt handoff for scripts.
 4. Add CLI coverage for API surfaces that are currently UI-only or curl-only.
 
-The most important requirement is credential ergonomics. External integrations need a reliable "way in" to Paperclip:
+The most important requirement is credential ergonomics. External integrations need a reliable "way in" to Beecon:
 
 - full board access via a board token approved by a user
 - individual agent access via an agent API key scoped to a specific company and agent
@@ -64,7 +64,7 @@ Main limitation:
 
 ## API Location Requirements
 
-The CLI must always know which Paperclip API it is operating against. This is especially important for fork/local development, where Paperclip may run on `3101+` rather than the upstream default `3100`.
+The CLI must always know which Beecon API it is operating against. This is especially important for fork/local development, where Beecon may run on `3101+` rather than the upstream default `3100`.
 
 Resolution order:
 
@@ -215,7 +215,7 @@ Behavior:
 
 Open decision:
 
-- Default prompt target should be `issue create + assign + wake`, because Paperclip's communication model is tasks/comments, not chat.
+- Default prompt target should be `issue create + assign + wake`, because Beecon's communication model is tasks/comments, not chat.
 - A direct "send message" mode can be `--issue <id>` and should add an issue comment plus optional wake.
 
 ## Missing CLI Coverage By API Domain
@@ -560,7 +560,7 @@ Automated tests should prefer mocked HTTP/server fixtures where possible. Live/A
 - Board token tests must use a test-specific key name and revoke the key during cleanup when the API supports it.
 - Cleanup should archive or delete the disposable company when the server permits it. If deletion is disabled, the test must leave the company clearly named as disposable and report its ID.
 - Commands must provide a `--yes` or non-interactive path for test setup so CI and local verification do not depend on manual prompts.
-- Destructive tests must require an explicit test opt-in such as an env var or a dedicated test command; normal unit tests must not mutate a real running Paperclip instance.
+- Destructive tests must require an explicit test opt-in such as an env var or a dedicated test command; normal unit tests must not mutate a real running Beecon instance.
 
 ## Implementation Plan
 
@@ -606,7 +606,7 @@ Automated tests should prefer mocked HTTP/server fixtures where possible. Live/A
 paperclipai agent-prompt AgentName "$AGENT_API_KEY" "Prompt here"
 ```
 
-- The one-liner creates or updates Paperclip work, does not require a browser, and fails with a clear company/agent mismatch error when the token does not belong to the requested agent.
+- The one-liner creates or updates Beecon work, does not require a browser, and fails with a clear company/agent mismatch error when the token does not belong to the requested agent.
 - Live/API verification creates and uses a disposable company only; no existing company is used for testing.
 - CLI docs list which API route families are covered and which remain UI-only.
 - Token creation, revocation, and prompt handoff have tests for board and agent auth paths.
