@@ -1,6 +1,6 @@
 # Low-Trust Presets
 
-Paperclip ships core trust preset names so containment decisions are enforced in
+Beecon ships core trust preset names so containment decisions are enforced in
 Community Edition even when EE policy editing is unavailable.
 
 ## Presets
@@ -66,5 +66,5 @@ runtime boundary:
   grants the `runtime.manage` tool class
 
 The Docker workflow in `doc/UNTRUSTED-PR-REVIEW.md` remains useful for manual
-local review, but Paperclip-managed low-trust execution requires a sandboxed
+local review, but Beecon-managed low-trust execution requires a sandboxed
 environment instead of a host-local adapter process.

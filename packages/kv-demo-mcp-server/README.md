@@ -2,14 +2,14 @@
 
 A standalone, self-contained MCP server for demos. One process exposes four
 key/value MCP tools **and** a tiny web UI that renders the values those tools
-mutate — so you can call a tool from a Paperclip agent and watch the value
+mutate — so you can call a tool from a Beecon agent and watch the value
 appear in a browser tab.
 
 The shared in-memory store is the whole point: the same `Map<string, string>`
 backs every tool call and every UI render. There is no database, no file, no
 persistence. Restart the process and the store is empty again. That makes this
-the right fixture for showing what Paperclip stores versus what the demo
-package stores — the package stores the values, Paperclip stores the
+the right fixture for showing what Beecon stores versus what the demo
+package stores — the package stores the values, Beecon stores the
 connection, the profile/policy decisions, and the audit log.
 
 This package pairs with the operator guide in
@@ -23,7 +23,7 @@ recorded walkthrough in [doc/MCP-DEMO-SCRIPT.md](../../doc/MCP-DEMO-SCRIPT.md).
   - `kv_get` (read) — read one key.
   - `kv_set` (write) — set one key to a string value.
   - `kv_delete` (destructive) — delete a key. Carries `destructiveHint: true`
-    so Paperclip's catalog quarantines it on first sight.
+    so Beecon's catalog quarantines it on first sight.
 - A Values UI at `/` — an auto-refreshing HTML table over the same store.
 - A JSON state route at `/api/state` — what the UI polls.
 
@@ -70,11 +70,11 @@ polling `/api/state` with the bearer header. The token is a convenience guard
 for local demos, not a hardened auth scheme; do not expose this server to
 untrusted networks.
 
-## Connecting from Paperclip
+## Connecting from Beecon
 
 The KV demo is meant for the `remote_http` connection path. The server speaks
 Streamable HTTP at `/mcp`, runs in a single process so the Values UI and the
-MCP tools share state, and listens on a fixed loopback port. Paperclip's
+MCP tools share state, and listens on a fixed loopback port. Beecon's
 remote-HTTP gateway proxies every call through policy and audit while leaving
 process supervision to you (just `Ctrl+C` the server when you are done).
 

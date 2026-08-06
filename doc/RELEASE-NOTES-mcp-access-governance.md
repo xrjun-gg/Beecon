@@ -6,11 +6,11 @@ Status: ready for CTO review. Final voice/copy pass pending sign-off.
 
 ## TL;DR
 
-Paperclip now governs every MCP tool call an agent makes. Operators install managed connections, define profiles and policies, approve high-risk actions, and read an append-only audit log. Default-deny on unknown tools; quarantine on schema drift; approval required by default for writes; trust rules to lift human-in-the-loop on safe repeats.
+Beecon now governs every MCP tool call an agent makes. Operators install managed connections, define profiles and policies, approve high-risk actions, and read an append-only audit log. Default-deny on unknown tools; quarantine on schema drift; approval required by default for writes; trust rules to lift human-in-the-loop on safe repeats.
 
 ## Why this exists
 
-Agents that can call arbitrary MCP tools can also leak data, modify accounts, or run destructive operations the operator never approved. Previous Paperclip releases relied on the agent's runtime trusting whatever MCP server it was pointed at. That is the wrong default for production. MCP Access Governance moves the trust boundary to Paperclip itself: every call is selected, evaluated, audited, and (when needed) gated on a human.
+Agents that can call arbitrary MCP tools can also leak data, modify accounts, or run destructive operations the operator never approved. Previous Beecon releases relied on the agent's runtime trusting whatever MCP server it was pointed at. That is the wrong default for production. MCP Access Governance moves the trust boundary to Beecon itself: every call is selected, evaluated, audited, and (when needed) gated on a human.
 
 ## What's new for operators
 

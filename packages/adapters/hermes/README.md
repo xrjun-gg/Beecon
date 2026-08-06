@@ -1,6 +1,6 @@
-# Paperclip Adapters for Hermes Agent
+# Beecon Adapters for Hermes Agent
 
-A [Paperclip](https://Paperclip.ing) adapter package that lets you run [Hermes Agent](https://github.com/NousResearch/hermes-agent) as a managed employee in a Paperclip company.
+A [Beecon](https://Paperclip.ing) adapter package that lets you run [Hermes Agent](https://github.com/NousResearch/hermes-agent) as a managed employee in a Beecon company.
 
 Hermes Agent is a full-featured AI agent by [Nous Research](https://nousresearch.com) with 30+ native tools, persistent memory, session persistence, 80+ skills, MCP support, and multi-provider model access.
 
@@ -9,8 +9,8 @@ This package owns both built-in Hermes adapter types:
 - `hermes_local` runs the local Hermes CLI as a child process. The package root exports remain compatible with the original local adapter.
 - `hermes_gateway` calls an already-running Hermes API server over HTTP/SSE. Gateway entrypoints live under the `./gateway` export namespace.
 
-Choose `hermes_local` when Paperclip and Hermes run on the same trusted host
-and Paperclip should start `hermes chat` for each heartbeat. Choose
+Choose `hermes_local` when Beecon and Hermes run on the same trusted host
+and Beecon should start `hermes chat` for each heartbeat. Choose
 `hermes_gateway` when Hermes is already running as an API server, often on
 another host, in Docker, or behind a private-network/TLS endpoint. The adapter
 type keys did not change during package consolidation.
@@ -20,8 +20,8 @@ type keys did not change during package consolidation.
 This adapter provides:
 
 - **8 inference providers** — Anthropic, OpenRouter, OpenAI, Nous, OpenAI Codex, ZAI, Kimi Coding, MiniMax
-- **Skills integration** — Scans both Paperclip-managed and Hermes-native skills (`~/.hermes/skills/`), with sync/list/resolve APIs
-- **Structured transcript parsing** — Raw Hermes stdout is parsed into typed `TranscriptEntry` objects so Paperclip renders proper tool cards with status icons and expand/collapse
+- **Skills integration** — Scans both Beecon-managed and Hermes-native skills (`~/.hermes/skills/`), with sync/list/resolve APIs
+- **Structured transcript parsing** — Raw Hermes stdout is parsed into typed `TranscriptEntry` objects so Beecon renders proper tool cards with status icons and expand/collapse
 - **Rich post-processing** — Converts Hermes ASCII banners, setext headings, and `+--+` table borders into clean GFM markdown
 - **Comment-driven wakes** — Agents wake to respond to issue comments, not just task assignments
 - **Auto model detection** — Reads `~/.hermes/config.yaml` to pre-populate the UI with the user's configured model
@@ -46,9 +46,9 @@ This adapter provides:
 
 ## Installation
 
-This package ships with Paperclip core as the built-in `hermes_local` and
+This package ships with Beecon core as the built-in `hermes_local` and
 `hermes_gateway` adapters. No Adapter manager installation is required for
-normal Paperclip use.
+normal Beecon use.
 
 ### Prerequisites
 
@@ -62,7 +62,7 @@ normal Paperclip use.
 
 For local adapter development, install the package from a local path in Adapter
 manager, or add an entry to `~/.Paperclip/adapter-plugins.json` and restart
-Paperclip. The external package can override either built-in Hermes adapter
+Beecon. The external package can override either built-in Hermes adapter
 while it is enabled:
 
 ```json
@@ -86,9 +86,9 @@ local run transcript parsing. Gateway entrypoints are exported from `./gateway`,
 Paperclip core imports these same package entrypoints for built-in adapter
 registration.
 
-### 2. Create a local Hermes agent in Paperclip
+### 2. Create a local Hermes agent in Beecon
 
-In the Paperclip UI or via API, create an agent with adapter type `hermes_local`:
+In the Beecon UI or via API, create an agent with adapter type `hermes_local`:
 
 ```json
 {
@@ -104,10 +104,10 @@ In the Paperclip UI or via API, create an agent with adapter type `hermes_local`
 }
 ```
 
-This mode shells out to the local `hermes` CLI. Paperclip injects runtime
+This mode shells out to the local `hermes` CLI. Beecon injects runtime
 environment variables and captures stdout/stderr from the child process.
 
-### 3. Create a Hermes gateway agent in Paperclip
+### 3. Create a Hermes gateway agent in Beecon
 
 Start Hermes with its API server enabled first:
 

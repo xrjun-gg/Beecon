@@ -10,11 +10,11 @@ Pair this script with [MCP-ACCESS-GOVERNANCE.md](./MCP-ACCESS-GOVERNANCE.md) for
 
 Before you start the recording:
 
-- Paperclip running in `local_trusted` or `authenticated/private` mode. Public mode is fine as long as the Paperclip process can reach `http://127.0.0.1:8848` (we connect over `remote_http`, so no trusted runtime worker is required).
+- Beecon running in `local_trusted` or `authenticated/private` mode. Public mode is fine as long as the Beecon process can reach `http://127.0.0.1:8848` (we connect over `remote_http`, so no trusted runtime worker is required).
 - A company with at least one agent identity to act as the caller. That agent must have an **active heartbeat run** for the gateway-call steps (Steps 6, 7, 9, 11). The simplest way to keep one alive during recording is to assign a placeholder task to the agent before the demo starts; the agent's heartbeat run stays in `running` while it works.
 - The KV demo server package built (`pnpm --filter @paperclipai/kv-demo-mcp-server build`).
 - Board API key (`$BOARD_API_KEY`) exported. Company ID (`$COMPANY_ID`) exported. Agent ID (`$AGENT_ID`) for the caller exported.
-- Paperclip URL (`$PAPERCLIP_URL`) exported.
+- Beecon URL (`$PAPERCLIP_URL`) exported.
 - The Tools & Access UI open at `/<prefix>/companies/<companyId>/tools`.
 - A browser tab open on the **Values UI** at `http://127.0.0.1:8848/` (you will open this in Step 1).
 
@@ -24,7 +24,7 @@ All API requests use `Authorization: Bearer $BOARD_API_KEY` for board calls. Gat
 
 Spoken intro:
 
-> "Paperclip ships an MCP gateway that sits between every agent and every upstream tool. Three things happen on every call: we pick the tool against a profile, we evaluate policies, and we record an audit event. I'm going to connect a tiny key/value MCP server I'm running on this laptop, then run a read, a write that needs approval, and a destructive call that gets denied. The KV server has a web UI on the same port that shows its values — so when the agent's write lands, you'll see it appear in the browser. The data lives in the server; the policy decisions and the audit log live in Paperclip."
+> "Beecon ships an MCP gateway that sits between every agent and every upstream tool. Three things happen on every call: we pick the tool against a profile, we evaluate policies, and we record an audit event. I'm going to connect a tiny key/value MCP server I'm running on this laptop, then run a read, a write that needs approval, and a destructive call that gets denied. The KV server has a web UI on the same port that shows its values — so when the agent's write lands, you'll see it appear in the browser. The data lives in the server; the policy decisions and the audit log live in Beecon."
 
 Show the Tools & Access overview tab. Point at:
 

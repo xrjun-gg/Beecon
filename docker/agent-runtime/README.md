@@ -19,7 +19,7 @@ Container images for running coding-agent harnesses in sandboxed environments (f
 - Node.js 22 (via NodeSource APT repo)
 - git
 - tini (PID-1 init, ensures signal propagation)
-- Non-root user `Paperclip` (uid/gid 1000)
+- Non-root user `Beecon` (uid/gid 1000)
 
 The NodeSource install puts `node` on the default `PATH`. The agent shim in this
 image runs the harness directly with that `PATH`. The shim does not source a
@@ -29,11 +29,11 @@ sandbox providers instead wrap each command in a login shell. That shell sources
 exec path sources `nvm`. For the full exec-path contract, see
 `packages/plugins/sandbox-providers/SANDBOX-REQUIREMENTS.md`.
 
-**Paperclip Binaries:**
+**Beecon Binaries:**
 - `/usr/local/bin/Paperclip-agent-shim`: Go binary compiled from `tools/agent-shim/`. Reads `/run/Paperclip/runtime-command.json` and `syscall.Exec`s the harness CLI.
 
 **Defaults:**
-- `USER`: 1000:1000 (Paperclip, non-root)
+- `USER`: 1000:1000 (Beecon, non-root)
 - `WORKDIR`: `/workspace` (mount workspace volumes here)
 - `ENTRYPOINT`: `/usr/bin/tini --` (PID-1 reaper, forwards signals)
 - `CMD`: `/usr/local/bin/Paperclip-agent-shim`
@@ -61,6 +61,10 @@ Build and verify the `agent-runtime-claude` image runs locally:
 docker buildx bake -f docker/agent-runtime/buildx-bake.hcl base claude --load
 docker run --rm ghcr.io/Paperclipai/agent-runtime-claude:dev claude-code --version
 ```
+
+- `/usr/local/bin/Paperclip-agent-shim`: Go binary compiled from `tools/agent-shim/`. Reads `/run/Paperclip/runtime-command.json` and `syscall.Exec`s the harness CLI.
+
+- `USER`: 1000:1000 (Beecon, non-root)
 
 ## Agent Container (Paperclip-agent-shim)
 

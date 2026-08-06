@@ -1,6 +1,6 @@
 ---
 title: Dashboard
-summary: Understanding the Paperclip dashboard
+summary: Understanding the Beecon dashboard
 ---
 
 The dashboard gives you a real-time overview of your autonomous company's health.

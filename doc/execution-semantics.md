@@ -4,13 +4,13 @@ Status: Current implementation guide
 Date: 2026-07-23
 Audience: Product and engineering
 
-This document explains how Paperclip interprets issue assignment, issue status, execution runs, wakeups, parent/sub-issue structure, and blocker relationships.
+This document explains how Beecon interprets issue assignment, issue status, execution runs, wakeups, parent/sub-issue structure, and blocker relationships.
 
 `doc/SPEC-implementation.md` remains the V1 contract. This document is the detailed execution model behind that contract.
 
 ## 1. Core Model
 
-Paperclip separates four concepts that are easy to blur together:
+Beecon separates four concepts that are easy to blur together:
 
 1. structure: parent/sub-issue relationships
 2. dependency: blocker relationships
@@ -27,11 +27,11 @@ An issue has at most one assignee.
 - `assigneeUserId` means the issue is owned by a human board user
 - both cannot be set at the same time
 
-This is a hard invariant. Paperclip is single-assignee by design.
+This is a hard invariant. Beecon is single-assignee by design.
 
 ## 3. Status Semantics
 
-Paperclip issue statuses are not just UI labels. They imply different expectations about ownership and execution.
+Beecon issue statuses are not just UI labels. They imply different expectations about ownership and execution.
 
 ### `backlog`
 
@@ -47,7 +47,7 @@ The issue is actionable but not actively claimed.
 
 - it may be assigned or unassigned
 - no checkout/execution lock is required yet
-- for agent-assigned work, Paperclip may still need a wake path to ensure the assignee actually sees it
+- for agent-assigned work, Beecon may still need a wake path to ensure the assignee actually sees it
 
 ### `in_progress`
 
@@ -67,7 +67,7 @@ This is the right state for:
 
 - waiting on another issue
 - waiting on a human decision
-- waiting on an external dependency or system when Paperclip does not own a scheduled re-check
+- waiting on an external dependency or system when Beecon does not own a scheduled re-check
 - work that automatic recovery could not safely continue
 
 Entering `blocked` requires a routable waiting path. An issue may transition into `blocked` only with at least one of:
@@ -76,7 +76,7 @@ Entering `blocked` requires a routable waiting path. An issue may transition int
 - a pending issue-thread interaction or linked approval that names the responder
 - a structured unblock descriptor naming `{owner, action}`, where `owner` is an agent id, user id, or the board, and `action` is the concrete step that unblocks the issue
 
-When a structured unblock descriptor is the waiting path, Paperclip immediately notifies the named owner: an agent owner gets a wake, a user or board owner gets an inbox notification. Prose-only blocked — free-text that names an owner or action in a comment without any of the paths above — routes to nobody. It is rejected at the API or auto-classified as `needs_attention` with a board notification, never silently accepted as a healthy waiting state.
+When a structured unblock descriptor is the waiting path, Beecon immediately notifies the named owner: an agent owner gets a wake, a user or board owner gets an inbox notification. Prose-only blocked — free-text that names an owner or action in a comment without any of the paths above — routes to nobody. It is rejected at the API or auto-classified as `needs_attention` with a board notification, never silently accepted as a healthy waiting state.
 
 A permission denial is not, by itself, a blocker. If an instructed step is denied at an authorization boundary but the issue's own deliverable is complete, the right disposition is `done`, not `blocked` (see the review-delegation rules in §6).
 
@@ -104,16 +104,16 @@ The execution model differs depending on assignee type.
 
 Agent-owned issues are part of the control plane's execution loop.
 
-- Paperclip can wake the assignee
-- Paperclip can track runs linked to the issue
-- Paperclip can recover some lost execution state after crashes/restarts
+- Beecon can wake the assignee
+- Beecon can track runs linked to the issue
+- Beecon can recover some lost execution state after crashes/restarts
 
 ### User-owned issues
 
 User-owned issues are not executed by the heartbeat scheduler.
 
-- Paperclip can track the ownership and status
-- Paperclip cannot rely on heartbeat/run semantics to keep them moving
+- Beecon can track the ownership and status
+- Beecon cannot rely on heartbeat/run semantics to keep them moving
 - stranded-work reconciliation does not apply to them
 
 This is why `in_progress` can be strict for agents without forcing the same runtime rules onto human-held work.

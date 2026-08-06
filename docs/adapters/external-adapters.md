@@ -1,9 +1,9 @@
 ---
 title: External Adapters
-summary: Build, package, and distribute adapters as plugins without modifying Paperclip source
+summary: Build, package, and distribute adapters as plugins without modifying Beecon source
 ---
 
-Paperclip supports external adapter plugins that can be installed from npm packages or local directories. External adapters work exactly like built-in adapters — they execute agents, parse output, and render transcripts — but they live in their own package and don't require changes to Paperclip's source code.
+Beecon supports external adapter plugins that can be installed from npm packages or local directories. External adapters work exactly like built-in adapters — they execute agents, parse output, and render transcripts — but they live in their own package and don't require changes to Beecon's source code.
 
 ## Built-in vs External
 
@@ -12,8 +12,8 @@ Paperclip supports external adapter plugins that can be installed from npm packa
 | Source location | Inside `Paperclip-fork/packages/adapters/` | Separate npm package or local directory |
 | Registration | Hardcoded in three registries | Loaded at startup via plugin system |
 | UI parser | Static import at build time | Dynamically loaded from API (see [UI Parser](/adapters/adapter-ui-parser)) |
-| Distribution | Ships with Paperclip | Published to npm or linked via `file:` |
-| Updates | Requires Paperclip release | Independent versioning |
+| Distribution | Ships with Beecon | Published to npm or linked via `file:` |
+| Updates | Requires Beecon release | Independent versioning |
 
 ### Built-in Hermes compatibility note
 

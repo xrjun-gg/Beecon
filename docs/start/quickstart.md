@@ -1,9 +1,9 @@
 ---
 title: Quickstart
-summary: Get Paperclip running in minutes
+summary: Get Beecon running in minutes
 ---
 
-Get Paperclip running locally in under 5 minutes.
+Get Beecon running locally in under 5 minutes.
 
 ## Quick Start (Recommended)
 
@@ -11,21 +11,21 @@ Get Paperclip running locally in under 5 minutes.
 npx Paperclipai onboard --yes
 ```
 
-This walks you through setup, configures your environment, and gets Paperclip running.
+This walks you through setup, configures your environment, and gets Beecon running.
 
-If you already have a Paperclip install, rerunning `onboard` keeps your current config and data paths intact. Use `Paperclipai configure` if you want to edit settings.
+If you already have a Beecon install, rerunning `onboard` keeps your current config and data paths intact. Use `Paperclipai configure` if you want to edit settings.
 
-To start Paperclip again later:
+To start Beecon again later:
 
 ```sh
 npx Paperclipai run
 ```
 
-> **Note:** If you used `npx` for setup, always use `npx Paperclipai` to run commands. The `pnpm Paperclipai` form only works inside a cloned copy of the Paperclip repository (see Local Development below).
+> **Note:** If you used `npx` for setup, always use `npx Paperclipai` to run commands. The `pnpm Paperclipai` form only works inside a cloned copy of the Beecon repository (see Local Development below).
 
 ## Local Development
 
-For contributors working on Paperclip itself. Prerequisites: Node.js 20+ and pnpm 9+.
+For contributors working on Beecon itself. Prerequisites: Node.js 20+ and pnpm 9+.
 
 Clone the repository, then:
 
@@ -36,7 +36,7 @@ pnpm dev
 
 This starts the API server and UI at [http://localhost:3100](http://localhost:3100).
 
-No external database required — Paperclip uses an embedded PostgreSQL instance by default.
+No external database required — Beecon uses an embedded PostgreSQL instance by default.
 
 When working from the cloned repo, you can also use:
 
@@ -48,7 +48,7 @@ This auto-onboards if config is missing, runs health checks with auto-repair, an
 
 ## What's Next
 
-Once Paperclip is running:
+Once Beecon is running:
 
 1. Create your first company in the web UI
 2. Define a company goal
@@ -58,5 +58,5 @@ Once Paperclip is running:
 6. Hit go — agents start their heartbeats and the company runs
 
 <Card title="Core Concepts" href="/start/core-concepts">
-  Learn the key concepts behind Paperclip
+  Learn the key concepts behind Beecon
 </Card>

@@ -1,6 +1,6 @@
 # CLI Reference
 
-Paperclip CLI now supports both:
+Beecon CLI now supports both:
 
 - installation and lifecycle management (`install`, `uninstall`, `update`, `upgrade`, `service`)
 - instance setup/diagnostics (`onboard`, `doctor`, `configure`, `env`, `allowed-hostname`, `env-lab`)
@@ -144,7 +144,7 @@ API base resolution order:
 1. `--api-base <url>`
 2. `PAPERCLIP_API_URL`
 3. selected context profile `apiBase`
-4. local Paperclip config server port
+4. local Beecon config server port
 5. `http://localhost:3100`
 
 Connection failures include the attempted URL and a `GET /api/health` check hint.
@@ -247,7 +247,7 @@ pnpm paperclipai issue release <issue-id>
 pnpm paperclipai issue force-release <issue-id>
 ```
 
-Issue subresources are exposed as Paperclip API wrappers. Commands that map to broad server schemas accept JSON payloads and validate them with shared schemas before sending.
+Issue subresources are exposed as Beecon API wrappers. Commands that map to broad server schemas accept JSON payloads and validate them with shared schemas before sending.
 
 ```sh
 pnpm paperclipai issue child:create <issue-id> --payload-json '{"title":"Child task"}'

@@ -41,7 +41,7 @@ This starts:
 
 `pnpm dev:once` auto-applies pending local migrations by default before starting the dev server.
 
-`pnpm dev` and `pnpm dev:once` are now idempotent for the current repo and instance: if the matching Paperclip dev runner is already alive, Paperclip reports the existing process instead of starting a duplicate.
+`pnpm dev` and `pnpm dev:once` are now idempotent for the current repo and instance: if the matching Beecon dev runner is already alive, Beecon reports the existing process instead of starting a duplicate.
 
 Issue execution may also use project execution workspace policies and workspace runtime services for per-project worktrees, preview servers, and managed dev commands. Configure those through the project workspace/runtime surfaces rather than starting long-running unmanaged processes when a task needs a reusable service.
 
@@ -99,7 +99,7 @@ The board UI ships its own sans-serif webfont assets in `ui/public/fonts/`.
 `ui/src/index.css` declares Inter v4.1 variable regular and italic faces and wires
 the Tailwind `font-sans` token to those bundled files before system fallbacks.
 Linux screenshot or Storybook capture jobs should not install host Inter packages
-or inject external font CSS to make Paperclip text render correctly.
+or inject external font CSS to make Beecon text render correctly.
 
 Font assets live in Vite's public directory so `pnpm --filter @paperclipai/ui build`
 emits them under `ui/dist/fonts/`. The server package copies the same output into
@@ -131,15 +131,15 @@ identities let a later request reclaim an abandoned marker after the operating
 system recycles the numeric PID. Older markers stay compatible and use process
 start metadata when available. When OS metadata is unavailable, the current
 server's health-reported boot time can still prove that a legacy marker predates
-the process now using its PID. Paperclip refuses to create a new request without
+the process now using its PID. Beecon refuses to create a new request without
 at least one identity source. Supported-platform process probes fail explicitly
 instead of silently treating a live PID as either the original owner or a
 recycled process when identity cannot be established.
 
 Use `--drain-required` only when the deploy intentionally requires the old terminate-and-retry behavior. Without that flag, the old server verifies that the marker targets its own PID, stops new scheduler work, waits for any queue-claim callback already in flight, snapshots currently running heartbeat run IDs and child PIDs, and skips the shutdown drain so eligible detached local-agent processes can keep running. ACP-backed local runs use server-owned stdio and cannot survive their parent server, so the old server instead persists their complete snapshot, changes the marker to `drainRequired` with `drainReason: "active_acp_run"`, and drains only those runs to queued retries. Detached CLI runs remain eligible for adoption during the same mixed restart. If an ACP process terminates but its terminal run update does not persist, startup classifies it as lost with reason `selective_drain_not_finalized` rather than treating the drain as successful. On startup the new server writes `$PAPERCLIP_HOME/instances/${PAPERCLIP_INSTANCE_ID:-default}/hot-restart-report.json` with `previousServerPid`, `newServerPid`, `previousServerVersion`, `newServerVersion`, `drainReason`, `adoptedRunIds`, `finalizedWhileDownRunIds`, `lostRunIds`, and per-run classifications before the normal orphan reaper runs.
 
-When Paperclip manages embedded PostgreSQL, it suppresses that dependency's eager
-`SIGINT`/`SIGTERM` cleanup hooks. Paperclip owns signal ordering so the heartbeat
+When Beecon manages embedded PostgreSQL, it suppresses that dependency's eager
+`SIGINT`/`SIGTERM` cleanup hooks. Beecon owns signal ordering so the heartbeat
 snapshot and any required drain complete while the database is still available;
 the coordinated shutdown path stops embedded PostgreSQL afterward.
 
