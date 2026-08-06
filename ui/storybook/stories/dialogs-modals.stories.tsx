@@ -39,7 +39,7 @@ const storybookGoals: Goal[] = [
   {
     id: "goal-company",
     companyId: COMPANY_ID,
-    title: "Build Paperclip",
+    title: "Build Beecon",
     description: "Make autonomous companies easier to run and govern.",
     level: "company",
     status: "active",

@@ -1,0 +1,75 @@
+[1mdiff --git a/ui/storybook/stories/agent-skill-row.stories.tsx b/ui/storybook/stories/agent-skill-row.stories.tsx[m
+[1mindex 34d62c9..11fe8da 100644[m
+[1m--- a/ui/storybook/stories/agent-skill-row.stories.tsx[m
+[1m+++ b/ui/storybook/stories/agent-skill-row.stories.tsx[m
+[36m@@ -86,7 +86,7 @@[m [mexport const DisabledUnsupported: Story = {[m
+     data: AVAILABLE,[m
+     checked: false,[m
+     disabled: true,[m
+[31m-    disabledReason: "Paperclip cannot manage skills for this adapter yet.",[m
+[32m+[m[32m    disabledReason: "Beecon cannot manage skills for this adapter yet.",[m
+   },[m
+ };[m
+ [m
+[1mdiff --git a/ui/storybook/stories/dialogs-modals.stories.tsx b/ui/storybook/stories/dialogs-modals.stories.tsx[m
+[1mindex 49d6080..1f22712 100644[m
+[1m--- a/ui/storybook/stories/dialogs-modals.stories.tsx[m
+[1m+++ b/ui/storybook/stories/dialogs-modals.stories.tsx[m
+[36m@@ -39,7 +39,7 @@[m [mconst storybookGoals: Goal[] = [[m
+   {[m
+     id: "goal-company",[m
+     companyId: COMPANY_ID,[m
+[31m-    title: "Build Paperclip",[m
+[32m+[m[32m    title: "Build Beecon",[m
+     description: "Make autonomous companies easier to run and govern.",[m
+     level: "company",[m
+     status: "active",[m
+[1mdiff --git a/ui/storybook/stories/skills-store-discovery.stories.tsx b/ui/storybook/stories/skills-store-discovery.stories.tsx[m
+[1mindex 5752b07..b59504e 100644[m
+[1m--- a/ui/storybook/stories/skills-store-discovery.stories.tsx[m
+[1m+++ b/ui/storybook/stories/skills-store-discovery.stories.tsx[m
+[36m@@ -12,10 +12,10 @@[m [mconst MOCK_CARDS: DiscoveryCard[] = [[m
+     catalogRef: null,[m
+     name: "Paperclip-dev",[m
+     slug: "Paperclip-dev",[m
+[31m-    author: "Paperclip",[m
+[32m+[m[32m    author: "Beecon",[m
+     version: "v2.4.1",[m
+[31m-    tagline: "Run and repair local Paperclip workspaces.",[m
+[31m-    description: "Develop and operate a local Paperclip instance.",[m
+[32m+[m[32m    tagline: "Run and repair local Beecon workspaces.",[m
+[32m+[m[32m    description: "Develop and operate a local Beecon instance.",[m
+     categories: ["devops", "coding"],[m
+     iconUrl: null,[m
+     color: null,[m
+[36m@@ -56,7 +56,7 @@[m [mconst MOCK_CARDS: DiscoveryCard[] = [[m
+     catalogRef: null,[m
+     name: "verify",[m
+     slug: "verify",[m
+[31m-    author: "Paperclip",[m
+[32m+[m[32m    author: "Beecon",[m
+     version: "v1.0.3",[m
+     tagline: "Prove the change works in a real app run.",[m
+     description: "Verify a code change works by running the app.",[m
+[36m@@ -92,7 +92,7 @@[m [mconst MOCK_CARDS: DiscoveryCard[] = [[m
+     required: false,[m
+     forkedFrom: true,[m
+     updatedAt: Date.now() - 1 * 86_400_000,[m
+[31m-    sourceBadge: "Paperclip",[m
+[32m+[m[32m    sourceBadge: "Beecon",[m
+   },[m
+   {[m
+     key: "anthropic/claude-api",[m
+[1mdiff --git a/ui/storybook/stories/source-resolved-fold.stories.tsx b/ui/storybook/stories/source-resolved-fold.stories.tsx[m
+[1mindex ff39164..400d141 100644[m
+[1m--- a/ui/storybook/stories/source-resolved-fold.stories.tsx[m
+[1m+++ b/ui/storybook/stories/source-resolved-fold.stories.tsx[m
+[36m@@ -54,7 +54,7 @@[m [mfunction DefaultPanel() {[m
+ }[m
+ [m
+ const meta = {[m
+[31m-  title: "Paperclip/Source-resolved Fold",[m
+[32m+[m[32m  title: "Beecon/Source-resolved Fold",[m
+   component: DefaultPanel,[m
+   parameters: { layout: "fullscreen" },[m
+ } satisfies Meta<typeof DefaultPanel>;[m
